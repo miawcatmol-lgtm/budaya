@@ -1,0 +1,3074 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+  <meta name="description" content="AKSARA - Aplikasi EdTech Belajar Ragam Bahasa Sasak Halus (Krama) & Pelestarian Budaya Lombok NTB."/>
+  <title>AKSARA • Belajar Bahasa Sasak Halus & Budaya NTB</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Material Symbols Outlined -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-bright": "#eefdf2",
+            "surface-container-highest": "#d7e6db",
+            "surface-variant": "#d7e6db",
+            "surface-container-high": "#ddece1",
+            "on-secondary-fixed": "#002113",
+            "primary-container": "#137547",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#80d9a1",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#261900",
+            "primary-fixed-dim": "#80d9a1",
+            "on-surface": "#111e18",
+            "primary": "#005b34",
+            "tertiary-fixed-dim": "#f7bd43",
+            "surface-container": "#e2f2e7",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#ffe1af",
+            "secondary-fixed-dim": "#75daa8",
+            "on-primary": "#ffffff",
+            "tertiary-fixed": "#ffdea5",
+            "surface": "#eefdf2",
+            "outline": "#6f7a70",
+            "error": "#ba1a1a",
+            "surface-tint": "#006d40",
+            "background": "#eefdf2",
+            "tertiary-container": "#856000",
+            "surface-dim": "#cfded3",
+            "on-secondary": "#ffffff",
+            "outline-variant": "#bec9bf",
+            "on-background": "#111e18",
+            "on-secondary-fixed-variant": "#005235",
+            "secondary-fixed": "#92f7c3",
+            "surface-container-low": "#e8f7ec",
+            "on-secondary-container": "#00734d",
+            "tertiary": "#674900",
+            "on-tertiary-fixed-variant": "#5d4200",
+            "primary-fixed": "#9cf6bc",
+            "secondary-container": "#92f7c3",
+            "on-primary-fixed-variant": "#00522f",
+            "on-primary-fixed": "#002110",
+            "on-primary-container": "#9ef8be",
+            "on-surface-variant": "#3f4941",
+            "secondary": "#006c48",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "inverse-surface": "#26332c",
+            "inverse-on-surface": "#e5f5e9"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2rem",
+            "gutter": "1rem",
+            "margin": "1rem"
+          },
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            body: ["Plus Jakarta Sans", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    @layer base {
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #eefdf2;
+        color: #111e18;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body {
+        overscroll-behavior-y: none;
+      }
+      .pb-safe { padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px); }
+      .pt-safe { padding-top: max(env(safe-area-inset-top, 0px), 12px); }
+    }
+
+    /* Scrollbar behavior */
+    ::-webkit-scrollbar { display: none; width: 0; height: 0; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Subahnale Songket Weave Motif Ribbon */
+    .songket-trim {
+      background: linear-gradient(90deg, #f7bd43 0%, #005b34 50%, #f7bd43 100%);
+    }
+
+    /* Tactile button animations */
+    .btn-press:active {
+      transform: scale(0.97);
+    }
+
+    /* Active view fade transition */
+    .app-view {
+      transition: opacity 0.2s ease-in-out;
+    }
+    .app-view.hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary/20">
+
+  <!-- ========================================== -->
+  <!-- TOAST NOTIFICATION FLOATING CONTAINER      -->
+  <!-- ========================================== -->
+  <div id="app-toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-[100] pointer-events-none transition-all duration-300 opacity-0 transform -translate-y-4 max-w-sm w-11/12 px-4 flex justify-center">
+    <div class="bg-inverse-surface text-inverse-on-surface px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2.5 text-center text-sm font-semibold border border-white/10">
+      <span class="material-symbols-outlined text-[20px] text-primary-fixed shrink-0" id="toast-icon">check_circle</span>
+      <span id="toast-text">Pemberitahuan</span>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MAIN APP TOP HEADER (FOR IN-APP VIEWS)    -->
+  <!-- ========================================== -->
+  <header id="main-app-header" class="fixed top-0 inset-x-0 z-40 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/30 hidden">
+    <div class="max-w-xl mx-auto h-16 px-4 flex items-center justify-between gap-3">
+      <!-- Left: Logo & Title -->
+      <button onclick="navigateTo('beranda')" class="flex items-center gap-2.5 min-w-0 text-left focus:outline-none group">
+        <div class="w-9 h-9 rounded-xl bg-surface-container-lowest p-1 shadow-sm flex items-center justify-center shrink-0 border border-outline-variant/30 group-hover:scale-105 transition-transform">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg1rvUd0PCn8CUO5nxqVqSZy-2NyeLLXZsrbJHdb_43mjmoDWKJhi4fWg68zz_vZQGRHJnOJGAg_Dgs-PpP2JZTASObVmknpGDL0jlrkGTeF7OL3YJnAArHFqzFolI6HVmkBrnATv2DTt2Zn3WzzcsG8F4tDXxd3nfv9zvev9QcmmeGQiJuNjz-5z8uYhn3Ezp9uze1jzhv4D5YdkqZUF6DhKKAPcHrld5zr1ExJc0" alt="Logo AKSARA" class="w-full h-full object-contain"/>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="font-extrabold text-primary tracking-tight text-lg">AKSARA</span>
+            <span class="text-[10px] text-tertiary font-bold tracking-wider uppercase bg-tertiary-fixed px-1.5 py-0.5 rounded-full">Sasak</span>
+          </div>
+          <span class="text-xs text-on-surface-variant truncate font-medium" id="header-subtext">Pelestarian Bahasa Krama</span>
+        </div>
+      </button>
+
+      <!-- Right: Streak & Notifications & Quick Profile -->
+      <div class="flex items-center gap-2 shrink-0">
+        <!-- Streak pill -->
+        <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-tertiary text-xs font-bold shadow-xs">
+          <span class="material-symbols-outlined text-[17px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+          <span id="streak-counter" class="tabular-nums">7 Hari</span>
+        </div>
+
+        <!-- Notification Trigger -->
+        <button onclick="triggerNotificationList()" aria-label="Notifikasi" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors relative">
+          <span class="material-symbols-outlined text-[20px]">notifications</span>
+          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error"></span>
+        </button>
+
+        <!-- Profile Shortcut -->
+        <button onclick="navigateTo('profil')" class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 ring-2 ring-secondary-container shadow-xs">
+          <span class="material-symbols-outlined text-[18px]">person</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================== -->
+  <!-- VIEW CONTAINER                             -->
+  <!-- ========================================== -->
+  <main class="flex-1 w-full max-w-xl mx-auto flex flex-col relative">
+
+    <!-- ======================================================== -->
+    <!-- 1. LANDING & ACCESS SCREEN (view-landing)                -->
+    <!-- ======================================================== -->
+    <section id="view-landing" class="app-view w-full flex flex-col px-4 pt-safe pb-16">
+      <!-- Regional Initiative Badge -->
+      <div class="pt-4 pb-2 flex flex-col items-center justify-center text-center">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container shadow-sm mb-3">
+          <span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+          <span class="text-[11px] font-bold uppercase tracking-wider">Inisiatif Pelestarian Budaya NTB</span>
+        </div>
+
+        <!-- Aksara Logo Presentation -->
+        <div class="relative flex items-center justify-center my-1">
+          <div class="w-24 h-24 rounded-2xl bg-surface-container-lowest p-2 shadow-md flex items-center justify-center relative overflow-hidden border border-outline-variant/30">
+            <div class="absolute top-0 inset-x-0 h-1.5 songket-trim"></div>
+            <img alt="Logo AKSARA Sasak EdTech" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg1rvUd0PCn8CUO5nxqVqSZy-2NyeLLXZsrbJHdb_43mjmoDWKJhi4fWg68zz_vZQGRHJnOJGAg_Dgs-PpP2JZTASObVmknpGDL0jlrkGTeF7OL3YJnAArHFqzFolI6HVmkBrnATv2DTt2Zn3WzzcsG8F4tDXxd3nfv9zvev9QcmmeGQiJuNjz-5z8uYhn3Ezp9uze1jzhv4D5YdkqZUF6DhKKAPcHrld5zr1ExJc0"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Statement -->
+      <div class="text-center mt-2 mb-4">
+        <div class="inline-flex items-center gap-1 text-tertiary-container text-xs font-semibold mb-1.5">
+          <span class="material-symbols-outlined text-[16px]">menu_book</span>
+          <span>Aksara Sasak Halus • Platform Interaktif</span>
+        </div>
+        <h1 class="text-3xl text-primary tracking-tight font-extrabold mb-2 leading-tight">
+          Rawat Bahasa,<br/>
+          <span class="text-tertiary-container">Lestarikan Budaya.</span>
+        </h1>
+        <p class="text-sm text-on-surface-variant max-w-xs mx-auto leading-relaxed">
+          Belajar ragam tutur krama Sasak Halus dengan cara menyenangkan, terstruktur, dan penuh sentuhan kearifan Lombok.
+        </p>
+      </div>
+
+      <!-- Cultural Heritage Illustration Card -->
+      <div class="mb-5">
+        <div class="relative w-full rounded-2xl overflow-hidden shadow-md bg-surface-container-lowest p-3 border border-outline-variant/30">
+          <div class="absolute top-0 inset-x-0 h-1.5 songket-trim"></div>
+          <div class="relative w-full h-40 rounded-xl overflow-hidden mb-3">
+            <img class="w-full h-full object-cover" alt="Bale Lumbung Sade Lombok" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf6EQtgg-4V2OcLADkA1O9BB8TZbSAVLkqce8q-fLQ4fiM5_0yajACo0GSiJIejLn-4H4W61VktEq3wdcyhqZKN15u4UYpORJMkc9hdus28Cg5DgpN9bMwZdOFnwIlljFawdHKTmYqun_Z-HVWX5k_0mnXVwPXyIsm_ARoB14zLhRwqk6h-TzI_3O99rtzaE0YcUFp8lpvU9J7-4VzgjUIAXz3Gs5_jAC6VaVfSwC4"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent flex items-end p-3">
+              <div class="flex items-center gap-2 text-white">
+                <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">nature_people</span>
+                <span class="text-xs font-semibold drop-shadow-sm">Tanah Sasak: Kearifan Tutur Budi</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro-Audio Sample Card -->
+          <div class="bg-surface-container-low rounded-xl p-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <button onclick="playVoicePronounce('Nunas Lugra')" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm active:scale-95 transition-transform" id="pronounceLandingBtn">
+                <span class="material-symbols-outlined text-[20px]">volume_up</span>
+              </button>
+              <div class="text-left">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-base font-bold text-primary">"Nunas Lugra"</span>
+                  <span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold">Sasak Halus</span>
+                </div>
+                <p class="text-xs text-on-surface-variant">Artinya: Mohon Izin / Permisi Santun</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-outline-variant text-[20px]">music_note</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex flex-col gap-2.5 mb-5">
+        <button onclick="enterAppDirectly('belajar')" class="w-full py-3.5 px-4 rounded-xl bg-primary text-on-primary font-bold text-sm flex items-center justify-center gap-2 shadow-md active:translate-y-0.5 transition-all">
+          <span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+          <span>Mulai Belajar Sekarang</span>
+        </button>
+        <button onclick="enterAppDirectly('budaya')" class="w-full py-3 px-4 rounded-xl bg-surface-container-lowest text-primary font-bold text-sm flex items-center justify-center gap-2 shadow-sm border border-outline-variant/30 active:translate-y-0.5 transition-all">
+          <span class="material-symbols-outlined text-[20px] text-tertiary-container">auto_stories</span>
+          <span>Jelajahi Cerita Budaya Mandalika</span>
+        </button>
+      </div>
+
+      <!-- Feature Highlight Badges Carousel -->
+      <div class="mb-6">
+        <div class="mb-2 flex items-center justify-between">
+          <span class="text-xs text-on-surface font-bold uppercase tracking-wider">Keunggulan Aksara</span>
+          <span class="text-xs text-primary font-semibold">4 Modul Terakreditasi</span>
+        </div>
+        <div class="flex gap-2.5 overflow-x-auto pb-1 no-scrollbar">
+          <div class="shrink-0 flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2.5 rounded-xl shadow-xs border border-outline-variant/30">
+            <div class="w-8 h-8 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">translate</span>
+            </div>
+            <div class="text-left">
+              <p class="text-xs font-bold text-on-surface leading-tight">300+ Kosakata</p>
+              <p class="text-[11px] text-on-surface-variant">Ragam Krama Halus</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2.5 rounded-xl shadow-xs border border-outline-variant/30">
+            <div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+            </div>
+            <div class="text-left">
+              <p class="text-xs font-bold text-on-surface leading-tight">Penutur Asli</p>
+              <p class="text-[11px] text-on-surface-variant">Pelafalan Autentik</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2.5 rounded-xl shadow-xs border border-outline-variant/30">
+            <div class="w-8 h-8 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">sports_esports</span>
+            </div>
+            <div class="text-left">
+              <p class="text-xs font-bold text-on-surface leading-tight">6 Mini Games</p>
+              <p class="text-[11px] text-on-surface-variant">Arena Kuis Interaktif</p>
+            </div>
+          </div>
+          <div class="shrink-0 flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2.5 rounded-xl shadow-xs border border-outline-variant/30">
+            <div class="w-8 h-8 rounded-lg bg-surface-container-high text-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">temple_buddhist</span>
+            </div>
+            <div class="text-left">
+              <p class="text-xs font-bold text-on-surface leading-tight">Putri Mandalika</p>
+              <p class="text-[11px] text-on-surface-variant">Audio Dwibahasa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth Card: Masuk / Daftar -->
+      <div class="mb-6">
+        <div class="bg-surface-container-lowest rounded-2xl p-5 shadow-sm border border-outline-variant/30">
+          <!-- Auth Switcher Header -->
+          <div class="flex bg-surface-container-low p-1 rounded-xl mb-4">
+            <button id="tabLogin" onclick="switchAuthTab('login')" class="flex-1 py-2 text-center rounded-lg text-xs font-bold bg-primary text-on-primary shadow-xs transition-all">
+              Masuk Akun
+            </button>
+            <button id="tabRegister" onclick="switchAuthTab('register')" class="flex-1 py-2 text-center rounded-lg text-xs font-bold text-on-surface-variant hover:text-primary transition-all">
+              Daftar Baru
+            </button>
+          </div>
+
+          <div class="mb-4">
+            <h2 id="authHeading" class="text-lg text-on-surface font-extrabold mb-0.5">Selamat Datang, Semeton!</h2>
+            <p id="authSubheading" class="text-xs text-on-surface-variant">Masuk untuk melanjutkan capaian belajar Sasak Halus dan simpan poin budayamu.</p>
+          </div>
+
+          <!-- Auth Form -->
+          <form id="authForm" onsubmit="handleAuthSubmit(event)" class="flex flex-col gap-3">
+            <div id="nameFieldGroup" class="hidden flex-col gap-1">
+              <label class="text-xs text-on-surface font-semibold">Nama Lengkap</label>
+              <div class="flex items-center gap-2 bg-surface-container-low px-3 py-2.5 rounded-xl focus-within:ring-2 focus-within:ring-primary">
+                <span class="material-symbols-outlined text-outline text-[20px]">badge</span>
+                <input id="inputAuthName" type="text" placeholder="e.g. Lalu Arya Pratama" class="bg-transparent w-full text-on-surface text-sm focus:outline-none placeholder:text-outline-variant"/>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <label class="text-xs text-on-surface font-semibold">Nomor WhatsApp atau Email</label>
+              <div class="flex items-center gap-2 bg-surface-container-low px-3 py-2.5 rounded-xl focus-within:ring-2 focus-within:ring-primary">
+                <span class="material-symbols-outlined text-outline text-[20px]">alternate_email</span>
+                <input id="inputAuthIdentifier" type="text" required placeholder="08xxxxxxxxxx atau semeton@aksara.id" class="bg-transparent w-full text-on-surface text-sm focus:outline-none placeholder:text-outline-variant" value="lalu.arya@lombok.id"/>
+              </div>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <div class="flex justify-between items-center">
+                <label class="text-xs text-on-surface font-semibold">Kata Sandi</label>
+                <button type="button" onclick="showToast('Tautan atur ulang sandi dikirim via WhatsApp.')" class="text-xs text-primary hover:underline">Lupa Sandi?</button>
+              </div>
+              <div class="flex items-center gap-2 bg-surface-container-low px-3 py-2.5 rounded-xl focus-within:ring-2 focus-within:ring-primary">
+                <span class="material-symbols-outlined text-outline text-[20px]">lock</span>
+                <input id="inputAuthPassword" type="password" required placeholder="••••••••" class="bg-transparent w-full text-on-surface text-sm focus:outline-none placeholder:text-outline-variant" value="SasakHalus2025"/>
+                <button type="button" onclick="togglePasswordVisibility()" class="text-outline hover:text-primary">
+                  <span id="eyeIcon" class="material-symbols-outlined text-[20px]">visibility</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button id="btnSubmitAuth" type="submit" class="mt-2 w-full py-3 rounded-xl bg-primary text-on-primary text-sm font-bold shadow-sm active:translate-y-0.5 transition-all flex items-center justify-center gap-2">
+              <span id="btnSubmitAuthText">Masuk Akun</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <div class="relative my-4 flex items-center justify-center">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full bg-surface-container-highest h-px"></div>
+            </div>
+            <span class="relative px-3 bg-surface-container-lowest text-[11px] text-on-surface-variant uppercase tracking-wider font-bold">Atau Coba Instan</span>
+          </div>
+
+          <!-- Instant Guest Access Button -->
+          <button onclick="enterAppDirectly('beranda')" class="w-full py-2.5 px-4 rounded-xl bg-surface-container text-on-surface text-xs font-bold flex items-center justify-center gap-2 active:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[18px] text-tertiary-container">person_outline</span>
+            <span>Masuk sebagai Tamu / Pelajar Pemula</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cultural Lore Note -->
+      <div class="bg-surface-container-low rounded-2xl p-4 shadow-xs flex items-start gap-3 border border-outline-variant/30 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-[22px]">diversity_3</span>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-primary mb-0.5">Petuah Luhur Semeton</p>
+          <p class="text-xs text-on-surface-variant leading-relaxed">
+            "Masyarakat Sasak memiliki tradisi luhur tutur bahasa halus krama. Mari rawat identitas pulau seribu masjid bersama generasi muda!"
+          </p>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-primary/20">
+          <img class="w-full h-full object-cover" alt="Baiq Nadia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxptP_QnNVMkFCynFabuYTdkAPzz1U3iJ1UUVpnLo9E-0hsJrCDYVWR60ZgV2Wh0p2gt8OfWP-pQlWIrQfB3orVU2gx8zfYPgJcAJVgUdUZdW82xdm3UGxs3xnYWqkpnL2i6YyvhHahIU1UIXjw_ARTYKeBYihwlhCrOjRq1OPNqGM24qk0VM-eVH3dBBUIl-BX6ymAamaCGJm95kMmsGsavTmn-wp9vHl9gQRbhOb"/>
+        </div>
+        <div>
+          <div class="flex items-center gap-0.5 text-tertiary-fixed-dim">
+            <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">star</span>
+          </div>
+          <p class="text-xs text-on-surface italic mt-0.5">"Sekarang tidak canggung lagi kalau bertutur dengan orang tua dan tetua di desa."</p>
+          <p class="text-[11px] text-on-surface-variant font-semibold mt-0.5">— Baiq Nadia, Mahasiswi Mataram</p>
+        </div>
+      </div>
+
+      <!-- Cultural Footer -->
+      <div class="text-center mt-6">
+        <p class="text-xs text-outline font-semibold">AKSARA • Aksi Kreatif Generasi Muda Merawat Bahasa Halus</p>
+        <p class="text-[11px] text-outline-variant mt-0.5">Nusa Tenggara Barat © 2025</p>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 2. BERANDA / DASHBOARD (view-beranda)                     -->
+    <!-- ======================================================== -->
+    <section id="view-beranda" class="app-view w-full flex flex-col px-4 pt-20 pb-24 hidden">
+      <!-- Dynamic Greeting & Profile Snippet -->
+      <div class="mb-3">
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-outline-variant/30 flex items-center justify-between gap-3 relative overflow-hidden">
+          <div class="absolute top-0 inset-x-0 h-1 songket-trim"></div>
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="relative shrink-0">
+              <div class="w-12 h-12 rounded-full overflow-hidden shadow-inner ring-2 ring-primary/20">
+                <img class="w-full h-full object-cover" alt="Avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIQ4U5ZUrZz31XoOuZQTDaCIwdwx1Cf-sIy34my8x7yQ2M6190-xVVVj6trNKQ3EkKbLAL8o72l49ReaRVNsIKLxmwIbQ447yYe5fZSS5_sXl7XkD9qi41GE6IlyJg1v-CuOAwFUyR3fWizYtGHwuMMGE1E31WepyO6VhClpHuTZlOcENn9dFv2DCPCDO6B8PtujLaOoQK8CPYYRCYcVqUD84Thm92FkCyviUmpifQ"/>
+              </div>
+              <span class="absolute -bottom-1 -right-1 bg-tertiary text-on-tertiary w-5 h-5 rounded-full flex items-center justify-center text-[10px] shadow-sm font-bold">3</span>
+            </div>
+            <div class="flex flex-col min-w-0">
+              <span class="text-[11px] text-tertiary font-bold tracking-wide uppercase">Tabe' Silaq, Semeton!</span>
+              <h2 class="text-base text-on-surface font-extrabold truncate" id="dashboard-user-name">Lalu Arya</h2>
+              <span class="text-xs text-on-surface-variant flex items-center gap-1 font-medium">
+                <span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span> Jalur Krama Inggil
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-col items-end shrink-0 gap-1">
+            <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-xs font-bold shadow-xs">
+              <span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+              <span class="tabular-nums">7 Hari</span>
+            </div>
+            <span class="text-[10px] text-outline font-medium">Target harian 80%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Hero Progress Card -->
+      <div class="mb-4">
+        <div class="bg-gradient-to-br from-primary via-primary-container to-secondary rounded-2xl p-4 text-on-primary shadow-md relative overflow-hidden">
+          <!-- Background Geometric Texture -->
+          <div class="absolute -right-8 -bottom-8 w-40 h-40 opacity-10 pointer-events-none">
+            <svg class="w-full h-full text-white fill-current" viewBox="0 0 100 100">
+              <polygon points="50,0 100,50 50,100 0,50"></polygon>
+              <polygon points="50,20 80,50 50,80 20,50"></polygon>
+            </svg>
+          </div>
+
+          <div class="flex items-center justify-between mb-3 relative z-10">
+            <div class="flex items-center gap-1.5 bg-surface-container-lowest/15 backdrop-blur-md px-2.5 py-1 rounded-full">
+              <span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">verified</span>
+              <span class="text-xs text-on-primary font-bold">Target Semester 1</span>
+            </div>
+            <span class="text-base font-extrabold text-tertiary-fixed-dim tabular-nums">68%</span>
+          </div>
+
+          <!-- Linear Gauge -->
+          <div class="relative z-10 mb-4">
+            <div class="w-full bg-white/20 h-2.5 rounded-full overflow-hidden p-0.5">
+              <div class="bg-gradient-to-r from-secondary-fixed to-tertiary-fixed h-full rounded-full transition-all duration-700 ease-out" style="width: 68%;"></div>
+            </div>
+            <div class="flex justify-between items-center mt-1.5 text-[11px] text-primary-fixed font-semibold">
+              <span>Modul 4: Adat Bertamu</span>
+              <span>4 Modul Tersisa</span>
+            </div>
+          </div>
+
+          <!-- Key Stats Grid -->
+          <div class="grid grid-cols-3 gap-2 bg-on-secondary-fixed/20 backdrop-blur-sm rounded-xl p-2.5 mb-3 relative z-10 text-center">
+            <div>
+              <span class="text-base text-on-primary font-bold tabular-nums" id="stat-words-count">42</span>
+              <p class="text-[10px] text-primary-fixed-dim font-medium leading-tight">Kosakata</p>
+            </div>
+            <div>
+              <span class="text-base text-on-primary font-bold tabular-nums">12</span>
+              <p class="text-[10px] text-primary-fixed-dim font-medium leading-tight">Latihan Tematis</p>
+            </div>
+            <div>
+              <span class="text-base text-tertiary-fixed font-bold tabular-nums" id="stat-xp-count">1.450</span>
+              <p class="text-[10px] text-primary-fixed-dim font-medium leading-tight">Poin Krama</p>
+            </div>
+          </div>
+
+          <!-- Primary Jump Action -->
+          <button onclick="navigateTo('belajar')" class="w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-bold text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-transform active:translate-y-0.5 relative z-10">
+            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+            <span>Lanjutkan: Unggah-Ungguh Krama Desa</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Word of the Day (Kata Hari Ini) -->
+      <div class="mb-4">
+        <div class="bg-surface-container-low rounded-2xl p-4 shadow-xs border border-outline-variant/30 relative">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-primary text-[18px]">auto_stories</span>
+              <span class="text-xs text-primary font-bold uppercase tracking-wider">Kata Hari Ini</span>
+            </div>
+            <span class="text-[11px] bg-surface-container-highest text-on-surface-variant font-bold px-2 py-0.5 rounded-full">Sasak Halus</span>
+          </div>
+
+          <div class="flex items-start justify-between gap-3 mb-2">
+            <div>
+              <h3 class="text-2xl text-primary font-extrabold tracking-tight">Pelinggih</h3>
+              <p class="text-xs text-outline italic">/pə-ling-gih/ • Pronomina (Kata Ganti Orang)</p>
+            </div>
+            <button onclick="playVoicePronounce('Pelinggih')" aria-label="Dengarkan pelafalan Pelinggih" class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-xs active:scale-95 transition-all">
+              <span class="material-symbols-outlined text-[22px]">volume_up</span>
+            </button>
+          </div>
+
+          <div class="bg-surface-container-lowest rounded-xl p-3 mb-2 shadow-xs border border-outline-variant/30">
+            <div class="flex items-center gap-1.5 text-xs text-on-surface font-bold mb-1">
+              <span class="material-symbols-outlined text-[16px] text-tertiary">translate</span>
+              <span>Arti: Anda / Beliau (Sopan / Halus)</span>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              “Napi sane dados tulung tiang katurang ring <strong class="text-primary font-semibold">pelinggih</strong>?”
+            </p>
+            <p class="text-[11px] text-outline mt-0.5 italic">
+              (Apa yang dapat hamba bantu sampaikan untuk Anda?)
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-on-surface-variant pt-1">
+            <span class="text-[11px] flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px] text-secondary">verified_user</span> Disapa kepada tetua atau pemuka adat
+            </span>
+            <button onclick="bookmarkWord('Pelinggih')" class="text-primary font-bold flex items-center gap-0.5 active:opacity-75">
+              Simpan <span class="material-symbols-outlined text-[16px]">bookmark_add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tingkat Kemahiran Selector -->
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2.5">
+          <div>
+            <h3 class="text-base text-on-surface font-bold">Tingkat Kemahiran</h3>
+            <p class="text-xs text-on-surface-variant">Pilih tingkatan register bahasa Sasak</p>
+          </div>
+          <span class="material-symbols-outlined text-outline text-[20px]">tune</span>
+        </div>
+
+        <div class="flex flex-col gap-2.5">
+          <!-- Tingkat 1: Mudah -->
+          <div onclick="navigateTo('belajar')" class="cursor-pointer bg-surface-container-lowest rounded-2xl p-3.5 shadow-xs border border-outline-variant/30 transition-all hover:border-primary/40 active:scale-[0.99] flex flex-col gap-2">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
+                  <span class="material-symbols-outlined text-[22px]">chat_bubble</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h4 class="text-sm text-on-surface font-bold">Tingkat Mudah</h4>
+                    <span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] px-2 py-0.5 rounded-full font-bold">Dasar</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant">Pergaulan sehari-hari & salam sapaan akrab</p>
+                </div>
+              </div>
+              <span class="material-symbols-outlined text-secondary text-[22px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            </div>
+            <div class="flex items-center justify-between gap-3 pt-1">
+              <div class="flex-1 bg-surface-container-high h-2 rounded-full overflow-hidden">
+                <div class="bg-secondary h-full rounded-full" style="width: 85%;"></div>
+              </div>
+              <span class="text-xs text-secondary font-bold tabular-nums">85% Selesai</span>
+            </div>
+          </div>
+
+          <!-- Tingkat 2: Sedang (Aktif) -->
+          <div onclick="navigateTo('belajar')" class="cursor-pointer bg-surface-container-lowest rounded-2xl p-3.5 shadow-sm border-2 border-primary/60 transition-all active:scale-[0.99] flex flex-col gap-2 relative overflow-hidden">
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary"></div>
+            <div class="flex items-start justify-between gap-2 pl-1">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-xs">
+                  <span class="material-symbols-outlined text-[22px]">groups</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h4 class="text-sm text-primary font-bold">Tingkat Sedang</h4>
+                    <span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-0.5 rounded-full font-bold">Aktif</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant">Percakapan santun keluarga & tetua lingkungan</p>
+                </div>
+              </div>
+              <span class="material-symbols-outlined text-primary text-[22px]">play_circle</span>
+            </div>
+            <div class="flex items-center justify-between gap-3 pt-1 pl-1">
+              <div class="flex-1 bg-surface-container-high h-2 rounded-full overflow-hidden">
+                <div class="bg-primary h-full rounded-full" style="width: 40%;"></div>
+              </div>
+              <span class="text-xs text-primary font-bold tabular-nums">40% Selesai</span>
+            </div>
+          </div>
+
+          <!-- Tingkat 3: Sulit (Terkunci) -->
+          <div class="bg-surface-container-high/60 rounded-2xl p-3.5 shadow-none border border-outline-variant/30 flex flex-col gap-2 relative opacity-75">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-surface-container-highest text-outline flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[20px]">lock</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h4 class="text-sm text-on-surface-variant font-bold">Tingkat Sulit</h4>
+                    <span class="bg-surface-variant text-on-surface-variant text-[10px] px-2 py-0.5 rounded-full font-bold">Terkunci</span>
+                  </div>
+                  <p class="text-xs text-outline">Bahasa Krama Inggil & naskah sastra Sasak kuno</p>
+                </div>
+              </div>
+              <span class="text-[11px] text-tertiary font-bold px-2 py-0.5 bg-surface-container-lowest rounded-full shadow-xs">Butuh Level 4</span>
+            </div>
+            <div class="flex items-center justify-between text-outline pt-0.5 text-[11px]">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[13px]">lock_clock</span> Selesaikan 3 latihan lagi di Tingkat Sedang
+              </span>
+              <span class="font-bold tabular-nums">0/15 Modul</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Asah Keterampilan & Mini Games Carousel -->
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2.5">
+          <div>
+            <h3 class="text-base text-on-surface font-bold">Asah Keterampilan</h3>
+            <p class="text-xs text-on-surface-variant">Latihan santai & mini games Sasak</p>
+          </div>
+          <button onclick="navigateTo('games')" class="text-xs text-primary font-bold flex items-center gap-0.5 hover:underline">
+            Semua Game <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+          </button>
+        </div>
+
+        <div class="flex gap-3 overflow-x-auto pb-2 pt-1 no-scrollbar snap-x snap-mandatory">
+          <!-- Game 1 Card -->
+          <div class="snap-start shrink-0 w-64 bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col justify-between">
+            <div class="mb-3">
+              <div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center mb-2 shadow-xs">
+                <span class="material-symbols-outlined text-[22px]">quiz</span>
+              </div>
+              <span class="text-[10px] text-primary font-bold uppercase tracking-wider">Mini Game 1</span>
+              <h4 class="text-sm font-bold text-on-surface leading-tight mt-0.5">Tebak Arti Kata Sasak</h4>
+              <p class="text-xs text-on-surface-variant mt-1 line-clamp-2">Uji pemahaman krama desa vs kata harian.</p>
+            </div>
+            <div class="pt-2 flex items-center justify-between border-t border-outline-variant/20">
+              <span class="text-xs text-tertiary font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">stars</span> +50 XP
+              </span>
+              <button onclick="launchGameArena('game1')" class="bg-primary text-on-primary text-xs px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 shadow-xs active:scale-95">
+                Main <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Game 2 Card -->
+          <div class="snap-start shrink-0 w-64 bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col justify-between">
+            <div class="mb-3">
+              <div class="w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center mb-2 shadow-xs">
+                <span class="material-symbols-outlined text-[22px]">sort_by_alpha</span>
+              </div>
+              <span class="text-[10px] text-secondary font-bold uppercase tracking-wider">Mini Game 2</span>
+              <h4 class="text-sm font-bold text-on-surface leading-tight mt-0.5">Susun Kalimat Hormat</h4>
+              <p class="text-xs text-on-surface-variant mt-1 line-clamp-2">Rangkai susunan kata sopan santun Sasak.</p>
+            </div>
+            <div class="pt-2 flex items-center justify-between border-t border-outline-variant/20">
+              <span class="text-xs text-tertiary font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">stars</span> +65 XP
+              </span>
+              <button onclick="launchGameArena('game2')" class="bg-secondary text-on-secondary text-xs px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 shadow-xs active:scale-95">
+                Mulai <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Game 5 Card (Pantun Lelakaq) -->
+          <div class="snap-start shrink-0 w-64 bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col justify-between">
+            <div class="mb-3">
+              <div class="w-10 h-10 rounded-xl bg-tertiary text-on-tertiary flex items-center justify-center mb-2 shadow-xs">
+                <span class="material-symbols-outlined text-[22px]">headphones</span>
+              </div>
+              <span class="text-[10px] text-tertiary font-bold uppercase tracking-wider">Mini Game 3</span>
+              <h4 class="text-sm font-bold text-on-surface leading-tight mt-0.5">Pantun Sasak (Lelakaq)</h4>
+              <p class="text-xs text-on-surface-variant mt-1 line-clamp-2">Dengarkan irama pantun tradisi & maknanya.</p>
+            </div>
+            <div class="pt-2 flex items-center justify-between border-t border-outline-variant/20">
+              <span class="text-xs text-tertiary font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">stars</span> +80 XP
+              </span>
+              <button onclick="launchGameArena('game5')" class="bg-tertiary text-on-tertiary text-xs px-3 py-1.5 rounded-xl font-bold flex items-center gap-1 shadow-xs active:scale-95">
+                Dengar <span class="material-symbols-outlined text-[16px]">volume_up</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Falsafah Sasak Banner -->
+      <div class="bg-surface-container rounded-2xl p-4 border border-outline-variant/30 relative overflow-hidden">
+        <div class="flex items-center gap-2 mb-1.5 text-primary">
+          <span class="material-symbols-outlined text-[20px]">lightbulb</span>
+          <span class="text-xs font-bold uppercase tracking-wider">Falsafah Sasak</span>
+        </div>
+        <p class="text-xs text-on-surface italic leading-relaxed">
+          “Tindih, Maliq, Merang” — Tiga pilar kehormatan luhur masyarakat Sasak dalam menjaga kesopanan tutur bahasa dan budi pekerti.
+        </p>
+        <div class="mt-2.5 flex items-center justify-between">
+          <span class="text-[11px] text-outline">Sumber: Majelis Adat Sasak NTB</span>
+          <button onclick="navigateTo('budaya')" class="text-primary text-xs font-bold flex items-center gap-1 hover:underline">
+            Pelajari Adat <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 3. BELAJAR / FLASHCARD & KUIS (view-belajar)             -->
+    <!-- ======================================================== -->
+    <section id="view-belajar" class="app-view w-full flex flex-col px-4 pt-20 pb-24 hidden">
+      <!-- Mode Tabs: Flashcard vs Tantangan Kuis -->
+      <div class="flex bg-surface-container-low p-1 rounded-2xl mb-4 border border-outline-variant/30">
+        <button id="subtab-flashcard" onclick="switchBelajarSubtab('flashcard')" class="flex-1 py-2 text-center rounded-xl text-xs font-bold bg-primary text-on-primary shadow-xs transition-all">
+          Kartu Belajar (Flashcard)
+        </button>
+        <button id="subtab-quiz" onclick="switchBelajarSubtab('quiz')" class="flex-1 py-2 text-center rounded-xl text-xs font-bold text-on-surface-variant hover:text-primary transition-all">
+          Tantangan Soal (Kuis)
+        </button>
+      </div>
+
+      <!-- ============================== -->
+      <!-- SUBSECTION A: FLASHCARD MODE   -->
+      <!-- ============================== -->
+      <div id="belajar-flashcard-subview" class="flex flex-col gap-4">
+        <!-- Progress Ribbon -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span class="text-xs text-primary font-bold uppercase tracking-wider">Modul 2</span>
+              <span class="text-xs text-on-surface-variant">• Sapaan Santun Sasak</span>
+            </div>
+            <div class="flex items-center gap-1 bg-surface-container-high px-2 py-0.5 rounded-full">
+              <span class="material-symbols-outlined text-tertiary text-[15px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+              <span class="text-[11px] text-on-surface font-bold">14 Hari</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-semibold text-on-surface">Kosakata Terpilih</span>
+              <span class="text-primary font-bold" id="flashcard-index-indicator">1 / 5</span>
+            </div>
+            <div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+              <div id="flashcard-progress-bar" class="h-full bg-primary rounded-full transition-all duration-300" style="width: 20%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Flashcard Card -->
+        <div class="relative bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden" id="active-flashcard-card">
+          <div class="h-1.5 w-full songket-trim"></div>
+          <div class="p-4 flex flex-col gap-4">
+            <!-- Top Badges & Audio Trigger -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1.5 bg-surface-container-low px-2.5 py-1 rounded-full">
+                <span class="material-symbols-outlined text-primary text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                <span id="fc-register" class="text-[11px] text-primary font-semibold tracking-wide">Bahasa Sasak Halus (Krama)</span>
+              </div>
+              <button id="fc-audio-btn" onclick="playCurrentFlashcardVoice()" aria-label="Dengarkan Pelafalan Asli" class="flex items-center gap-1.5 bg-surface-container-low hover:bg-secondary-container active:scale-95 px-3 py-1 rounded-full transition-all">
+                <span class="material-symbols-outlined text-[16px] text-primary" id="fc-audio-icon">volume_up</span>
+                <span class="text-xs text-on-surface-variant font-bold">Lafal Asli</span>
+              </button>
+            </div>
+
+            <!-- Flashcard Artwork Photo -->
+            <div class="relative w-full h-36 rounded-xl overflow-hidden shadow-xs">
+              <img id="fc-image" class="w-full h-full object-cover" alt="Konteks Adat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHF_lBMGBtOr1novSyzqDRncqNME3HF4XPD5UrR66Aa9NVowXnmi2aZOcQlkrT32EeZxFKwpFTxnXG01IA0TgZoDbtETetcNhfSqtwWcT0a_3D4-NCXDt3nnwXrws0kB_xeauuFVULfwTjuquxjF12GeHNP9plRV7aFKnEbWsHawMb5vNbxvLad0NMtvNn2DI7aVd3rKSTybLBXKeB2rIRfMRt9UVOrtKm-_EP0Xso"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/85 via-inverse-surface/20 to-transparent flex items-end p-2.5">
+                <span id="fc-situation" class="text-xs text-white font-medium flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[14px]">groups</span>
+                  Tata Krama Berjumpa Sesepuh
+                </span>
+              </div>
+            </div>
+
+            <!-- Headword & Phonetics -->
+            <div class="flex flex-col items-center text-center gap-1">
+              <h2 id="fc-word" class="text-3xl text-primary tracking-tight font-extrabold">Napi Gati</h2>
+              <div class="flex items-center gap-2">
+                <span id="fc-phonetic" class="text-xs text-on-surface-variant font-mono bg-surface-container px-2 py-0.5 rounded">/na·pi ga·ti/</span>
+                <span id="fc-pos" class="text-xs text-tertiary-container font-semibold">Kata Tanya Penghormatan</span>
+              </div>
+            </div>
+
+            <!-- Translation -->
+            <div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1">
+              <span class="text-[11px] text-on-surface-variant uppercase tracking-wider font-bold">Terjemahan Utama</span>
+              <p id="fc-meaning" class="text-sm text-on-surface font-bold leading-snug">
+                Ada apa / Ada urusan apa gerangan?
+              </p>
+              <p id="fc-detail" class="text-xs text-on-surface-variant mt-0.5">
+                Bentuk pertanyaan santun dan penuh rasa hormat yang ditujukan saat menyambut atau menanyakan keperluan lawan bicara.
+              </p>
+            </div>
+
+            <!-- Context note -->
+            <div class="flex items-start gap-2 p-2.5 rounded-lg bg-surface-container-high/60">
+              <span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">psychology_alt</span>
+              <span id="fc-context" class="text-xs text-on-surface-variant leading-relaxed">
+                <strong class="text-on-surface font-semibold">Konteks Tutur:</strong> Digunakan ketika menyapa tamu agung, orang tua, pemuka adat (*Tuan Guru/Tokoh Krama*), atau dalam suasana musyawarah keluarga.
+              </span>
+            </div>
+
+            <!-- Guided Example Sentence Box -->
+            <div class="bg-surface-container-lowest rounded-xl p-3 border border-outline-variant/30 flex flex-col gap-1.5 shadow-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-primary font-bold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]">record_voice_over</span>
+                  Contoh Tuturan Terpandu
+                </span>
+                <span class="text-[10px] bg-primary/10 text-primary font-bold px-1.5 py-0.5 rounded">Alus Meno</span>
+              </div>
+              <p id="fc-example-sasak" class="text-xs text-on-surface font-semibold italic">
+                "Silaq pelinggih, napi gati sane dados tiang bantu?"
+              </p>
+              <p id="fc-example-indo" class="text-[11px] text-on-surface-variant">
+                (Silakan Tuan/Bapak, apakah ada hal yang dapat saya bantu?)
+              </p>
+            </div>
+
+            <!-- Cultural Etiquette & Tone Advice -->
+            <div class="rounded-xl p-3 bg-tertiary-fixed/30 flex items-start gap-2.5 border border-tertiary-fixed/40">
+              <div class="w-7 h-7 rounded-full bg-tertiary-container flex items-center justify-center shrink-0 text-white">
+                <span class="material-symbols-outlined text-[16px]">lightbulb</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[10px] text-on-tertiary-fixed font-bold uppercase tracking-wider">Catatan Adat Sasak</span>
+                <p id="fc-etiquette" class="text-xs text-on-surface leading-relaxed">
+                  Hindari melafalkan dengan intonasi tinggi. Ucapkan dengan sedikit menundukkan kepala untuk menjaga kehalusan pekerti (*tatas tuhu tutur*).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Retention Quiz for this card -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-tertiary text-[18px]">quiz</span>
+              <span class="text-xs text-on-surface font-bold">Uji Refleks Cepat</span>
+            </div>
+            <span class="text-xs text-primary-container font-semibold">+15 XP Budaya</span>
+          </div>
+          <p id="fc-quiz-prompt" class="text-xs text-on-surface-variant">
+            Manakah situasi yang paling tepat untuk mengucap <span class="font-bold text-on-surface">"Napi Gati"</span>?
+          </p>
+          <div class="grid grid-cols-1 gap-2 pt-1" id="fc-quiz-options">
+            <button onclick="checkFlashcardQuiz(this, true)" class="w-full text-left p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.99] transition-all flex items-center justify-between text-xs text-on-surface">
+              <span>A. Bertanya santun keperluan tamu yang baru tiba di Bale</span>
+              <span class="material-symbols-outlined text-[18px] text-outline-variant opt-icon">radio_button_unchecked</span>
+            </button>
+            <button onclick="checkFlashcardQuiz(this, false)" class="w-full text-left p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.99] transition-all flex items-center justify-between text-xs text-on-surface">
+              <span>B. Mengajak teman sebaya pergi ke pasar tradisional</span>
+              <span class="material-symbols-outlined text-[18px] text-outline-variant opt-icon">radio_button_unchecked</span>
+            </button>
+          </div>
+          <div id="fc-quiz-feedback" class="hidden p-2 rounded-xl text-center text-xs font-bold transition-all"></div>
+        </div>
+
+        <!-- Primary Control Actions Floating Dock -->
+        <div class="flex flex-col gap-1.5 pt-1">
+          <div class="flex items-center gap-2">
+            <button onclick="previousFlashcard()" aria-label="Kosakata Sebelumnya" class="h-12 w-12 rounded-xl bg-surface-container-lowest border border-outline-variant/30 active:scale-95 shadow-xs text-on-surface-variant hover:text-primary flex items-center justify-center transition-all shrink-0">
+              <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+            </button>
+            <button onclick="toggleActiveBookmark()" id="fc-bookmark-btn" aria-label="Simpan Kosakata" class="h-12 w-12 rounded-xl bg-surface-container-lowest border border-outline-variant/30 active:scale-95 shadow-xs text-on-surface-variant flex items-center justify-center transition-all shrink-0">
+              <span class="material-symbols-outlined text-[20px]" id="fc-bookmark-icon">bookmark_border</span>
+            </button>
+            <button onclick="masterActiveFlashcard(this)" class="flex-1 h-12 bg-primary text-on-primary rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-sm active:translate-y-0.5 transition-all">
+              <span class="material-symbols-outlined text-[20px]">check_circle</span>
+              <span>Saya Sudah Paham (Lanjut)</span>
+            </button>
+          </div>
+          <p class="text-center text-[11px] text-on-surface-variant py-0.5">
+            Tersimpan otomatis ke portofolio kosakata bahasa Anda
+          </p>
+        </div>
+      </div>
+
+      <!-- ============================== -->
+      <!-- SUBSECTION B: QUIZ MODE        -->
+      <!-- ============================== -->
+      <div id="belajar-quiz-subview" class="flex flex-col gap-4 hidden">
+        <!-- Quiz Progress -->
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center gap-1.5">
+              <span class="text-primary font-bold">Modul 03</span>
+              <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+              <span class="text-on-surface-variant" id="quiz-question-index">Pertanyaan 4 dari 5</span>
+            </div>
+            <div class="flex items-center gap-1 bg-surface-container px-2 py-0.5 rounded-full shadow-xs">
+              <span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+              <span class="text-[11px] text-on-surface font-bold">14 Hari</span>
+            </div>
+          </div>
+          <div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden p-0.5">
+            <div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: 80%;"></div>
+          </div>
+        </div>
+
+        <!-- Question Prompt Box -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col gap-3 relative overflow-hidden">
+          <div class="h-1.5 w-full songket-trim rounded-full -mt-1"></div>
+          <div class="flex items-start justify-between gap-2">
+            <div class="flex items-center gap-1.5 bg-surface-container-high px-2.5 py-1 rounded-full">
+              <span class="material-symbols-outlined text-[15px] text-primary">temple_hindu</span>
+              <span class="text-[11px] text-on-surface-variant uppercase tracking-wider font-semibold">Tata Krama Tamu</span>
+            </div>
+            <span class="text-[11px] text-tertiary font-bold bg-tertiary-fixed/40 px-2 py-0.5 rounded-full">+20 XP</span>
+          </div>
+
+          <p class="text-base text-on-surface font-bold leading-snug">
+            Ketika Anda bertamu ke kediaman tokoh krama adat di Lombok Timur untuk menanyakan kabar, ungkapan sapaan <span class="text-primary italic font-bold">Bahasa Sasak Halus</span> manakah yang paling santun digunakan?
+          </p>
+
+          <div class="relative w-full h-28 rounded-xl overflow-hidden shadow-inner">
+            <img class="w-full h-full object-cover" alt="Bale Adat Sasak" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeJC6IbTvb14j5_BW9QibrbO8kN5JACll9sdeXpAayRiodN6mjAtaVL_dHuRhDGHyRB-1enJ3dnysq_HH-TdJ0cdJqnQsX4rV_3eWvlA-3_JBHran0DQ6__1t4NTJr2j7A05s0iHjGHj9d8Mt_v5MkQHNyxwt86FcaDobo-sivYZZDSdlpcuUoJWBGbIm4DW9y8wGZd6V4BeE7oZpNTnsfJWJ-Kezj6xupZvxApOex"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-on-surface/75 via-transparent to-transparent flex items-end p-2.5">
+              <span class="text-xs text-white font-medium flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">location_on</span> Bale Adat Sade & Sembalun
+              </span>
+            </div>
+          </div>
+
+          <!-- Dialect Audio Player Helper -->
+          <div class="flex items-center justify-between bg-surface-container-low p-2.5 rounded-xl">
+            <div class="flex items-center gap-2 min-w-0">
+              <button onclick="playVoicePronounce('Pelinggih sane katuran napi kabar becik')" aria-label="Dengarkan cuplikan ucapan" class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-primary shadow-xs active:scale-95 transition-transform shrink-0">
+                <span class="material-symbols-outlined text-[20px]">volume_up</span>
+              </button>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs text-on-surface font-semibold truncate">Bantuan Pelafalan Dialek</span>
+                <span class="text-[11px] text-on-surface-variant truncate">Logat Krama Keker Sasak</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-0.5 px-2">
+              <span class="w-1 h-3 bg-primary rounded-full animate-pulse"></span>
+              <span class="w-1 h-5 bg-primary rounded-full animate-pulse delay-75"></span>
+              <span class="w-1 h-2 bg-primary rounded-full animate-pulse delay-150"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 Multiple Choice Options -->
+        <div class="flex flex-col gap-2" id="quiz-challenge-options">
+          <button onclick="handleQuizAnswer(this, false, 'Pilihan A kasual kurang tepat untuk menyapa tetua adat.')" class="w-full bg-surface-container-lowest rounded-2xl p-3 shadow-xs border border-outline-variant/30 flex items-center justify-between text-left transition-all active:scale-[0.99]">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-xs font-bold text-on-surface-variant shrink-0">A</div>
+              <div>
+                <p class="text-sm font-semibold text-on-surface">Silaq pelinggih, kembek niki?</p>
+                <p class="text-[11px] text-on-surface-variant">Tingkat tutur: Kasual / Pasar</p>
+              </div>
+            </div>
+          </button>
+
+          <button onclick="handleQuizAnswer(this, true, 'Tepat sekali! Pelinggih adalah penghormatan tertinggi dan becik berarti rahayu / baik.')" class="w-full bg-surface-container-lowest rounded-2xl p-3 shadow-xs border border-outline-variant/30 flex items-center justify-between text-left transition-all active:scale-[0.99]">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-xs font-bold text-on-surface-variant shrink-0">B</div>
+              <div>
+                <p class="text-sm font-semibold text-on-surface">Pelinggih sane katuran, napi kabar becik?</p>
+                <p class="text-[11px] text-primary-container font-semibold">Tingkat tutur: Halus / Krama Inggil</p>
+              </div>
+            </div>
+          </button>
+
+          <button onclick="handleQuizAnswer(this, false, 'Wah mangan hanya cocok untuk teman sebaya akrab.')" class="w-full bg-surface-container-lowest rounded-2xl p-3 shadow-xs border border-outline-variant/30 flex items-center justify-between text-left transition-all active:scale-[0.99]">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-xs font-bold text-on-surface-variant shrink-0">C</div>
+              <div>
+                <p class="text-sm font-semibold text-on-surface">Wah mangan ke nteh?</p>
+                <p class="text-[11px] text-on-surface-variant">Tingkat tutur: Akrab / Teman Sebaya</p>
+              </div>
+            </div>
+          </button>
+
+          <button onclick="handleQuizAnswer(this, false, 'Ungkapan ini rancu dan tidak lazim dalam etika Sasak.')" class="w-full bg-surface-container-lowest rounded-2xl p-3 border border-outline-variant/30 flex items-center justify-between text-left transition-all active:scale-[0.99]">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-xs font-bold text-on-surface-variant shrink-0">D</div>
+              <div>
+                <p class="text-sm font-semibold text-on-surface">Apan salam de niki?</p>
+                <p class="text-[11px] text-on-surface-variant">Tingkat tutur: Rancu / Tidak Lazim</p>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Quiz Explanation Card (Shown after answering) -->
+        <div id="quiz-result-explanation" class="hidden bg-surface-container-lowest rounded-2xl p-4 shadow-sm border border-outline-variant/30 flex flex-col gap-2.5">
+          <div class="flex items-center gap-2" id="quiz-status-header">
+            <div class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+            </div>
+            <span class="text-sm font-bold text-primary" id="quiz-status-title">Bagus Sekali! Pilihan Tepat</span>
+            <span class="ml-auto text-xs bg-tertiary-fixed text-on-tertiary-fixed font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
+              <span class="material-symbols-outlined text-[13px]">military_tech</span> +20 XP
+            </span>
+          </div>
+
+          <p class="text-xs text-on-surface leading-relaxed" id="quiz-status-detail">
+            Kata <span class="font-semibold text-primary">"Pelinggih"</span> adalah pronomina persona kedua honorifik tertinggi (padanan Paduka/Anda Terhormat). Istilah <span class="font-semibold text-primary">"Becik"</span> menandakan kabar baik atau rahayu.
+          </p>
+
+          <div class="bg-surface-container-low rounded-xl p-2.5 flex flex-col gap-1">
+            <span class="text-[11px] text-on-surface-variant font-bold uppercase tracking-wider flex items-center gap-1">
+              <span class="material-symbols-outlined text-[14px] text-tertiary">info</span> Catatan Kesantunan Adat
+            </span>
+            <p class="text-xs text-on-surface-variant">
+              Menyapa pemuka adat dengan frasa lumrah dianggap <em>"nenten maduwe tata krama"</em> (kurang beradab).
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-2">
+            <button onclick="resetQuizQuestion()" class="py-2.5 px-3 rounded-xl bg-surface-container-highest text-primary font-bold text-xs flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">replay</span> Ulangi Soal
+            </button>
+            <button onclick="showToast('Soal berikutnya sedang dipersiapkan!'); awardPoints(20, 10);" class="py-2.5 px-3 rounded-xl bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-1">
+              <span>Lanjut Soal 5</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 4. GAMES / ARENA PERMAINAN (view-games)                  -->
+    <!-- ======================================================== -->
+    <section id="view-games" class="app-view w-full flex flex-col px-4 pt-20 pb-24 hidden">
+      <!-- Games Header Banner -->
+      <div class="bg-gradient-to-br from-primary via-primary-container to-secondary rounded-2xl p-4 text-on-primary shadow-sm mb-4 relative overflow-hidden">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-surface-container-lowest/20 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px] text-tertiary-fixed-dim">sports_esports</span>
+            </div>
+            <div>
+              <h2 class="text-base font-extrabold text-white">Arena Permainan Edukatif</h2>
+              <p class="text-[11px] text-primary-fixed">Asah refleks & kosakata Sasak Halus</p>
+            </div>
+          </div>
+          <span class="text-xs bg-tertiary-fixed text-on-tertiary-fixed font-bold px-2 py-0.5 rounded-full">6 Arena Aktif</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 bg-black/15 backdrop-blur-xs rounded-xl p-2.5 mt-2 text-center">
+          <div>
+            <span class="text-xs text-primary-fixed block font-medium">Total Skor XP</span>
+            <span class="text-sm font-extrabold text-tertiary-fixed" id="games-total-xp">1.450</span>
+          </div>
+          <div>
+            <span class="text-xs text-primary-fixed block font-medium">Koin Budaya</span>
+            <span class="text-sm font-extrabold text-white" id="games-total-coins">320</span>
+          </div>
+          <div>
+            <span class="text-xs text-primary-fixed block font-medium">Peringkat</span>
+            <span class="text-sm font-extrabold text-secondary-fixed">Madya #12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Games List Grid -->
+      <div class="flex flex-col gap-3">
+        <!-- Game 1: Tebak Arti Kata -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center justify-between gap-3 hover:border-primary/40 transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px]">quiz</span>
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <h3 class="text-sm font-extrabold text-on-surface truncate">Tebak Arti Kata Sasak</h3>
+                <span class="text-[10px] bg-primary/10 text-primary font-bold px-1.5 py-0.2 rounded">Populer</span>
+              </div>
+              <p class="text-xs text-on-surface-variant line-clamp-1 mt-0.5">Kuis pilihan ganda makna kata krama harian.</p>
+              <span class="text-[11px] text-tertiary font-bold flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-[14px]">stars</span> +20 XP per soal
+              </span>
+            </div>
+          </div>
+          <button onclick="launchGameArena('game1')" class="px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-bold shadow-xs active:scale-95 transition-transform shrink-0">
+            Main
+          </button>
+        </div>
+
+        <!-- Game 2: Susun Kalimat Krama -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center justify-between gap-3 hover:border-primary/40 transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px]">sort_by_alpha</span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-sm font-extrabold text-on-surface truncate">Susun Kalimat Krama</h3>
+              <p class="text-xs text-on-surface-variant line-clamp-1 mt-0.5">Rangkai kata acak menjadi kalimat sopan.</p>
+              <span class="text-[11px] text-tertiary font-bold flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-[14px]">stars</span> +30 XP per kalimat
+              </span>
+            </div>
+          </div>
+          <button onclick="launchGameArena('game2')" class="px-4 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-bold shadow-xs active:scale-95 transition-transform shrink-0">
+            Mulai
+          </button>
+        </div>
+
+        <!-- Game 3: Tebak Pelafalan Asli -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center justify-between gap-3 hover:border-primary/40 transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px]">volume_up</span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-sm font-extrabold text-on-surface truncate">Tebak Pelafalan Asli</h3>
+              <p class="text-xs text-on-surface-variant line-clamp-1 mt-0.5">Dengarkan audio dialek & tentukan artinya.</p>
+              <span class="text-[11px] text-tertiary font-bold flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-[14px]">stars</span> +25 XP
+              </span>
+            </div>
+          </div>
+          <button onclick="launchGameArena('game3')" class="px-4 py-2 rounded-xl bg-tertiary text-on-tertiary text-xs font-bold shadow-xs active:scale-95 transition-transform shrink-0">
+            Dengar
+          </button>
+        </div>
+
+        <!-- Game 4: Latihan Menulis Krama -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center justify-between gap-3 hover:border-primary/40 transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px]">edit_note</span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-sm font-extrabold text-on-surface truncate">Latihan Menulis Krama</h3>
+              <p class="text-xs text-on-surface-variant line-clamp-1 mt-0.5">Ketikkan padanan bahasa Sasak halus.</p>
+              <span class="text-[11px] text-tertiary font-bold flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-[14px]">stars</span> +35 XP
+              </span>
+            </div>
+          </div>
+          <button onclick="launchGameArena('game4')" class="px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-bold shadow-xs active:scale-95 transition-transform shrink-0">
+            Tulis
+          </button>
+        </div>
+
+        <!-- Game 5: Pantun Adat Sasak (Lelakaq) -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center justify-between gap-3 hover:border-primary/40 transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px]">headphones</span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-sm font-extrabold text-on-surface truncate">Pantun Lelakaq Adat</h3>
+              <p class="text-xs text-on-surface-variant line-clamp-1 mt-0.5">Analisis pesan filosofis pantun Lombok.</p>
+              <span class="text-[11px] text-tertiary font-bold flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-[14px]">stars</span> +40 XP
+              </span>
+            </div>
+          </div>
+          <button onclick="launchGameArena('game5')" class="px-4 py-2 rounded-xl bg-surface-container-highest text-primary text-xs font-bold shadow-xs active:scale-95 transition-transform shrink-0">
+            Simak
+          </button>
+        </div>
+
+        <!-- Game 6: Simulasi Dialog Santun -->
+        <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex items-center justify-between gap-3 hover:border-primary/40 transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[26px]">record_voice_over</span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-sm font-extrabold text-on-surface truncate">Simulasi Dialog Santun</h3>
+              <p class="text-xs text-on-surface-variant line-clamp-1 mt-0.5">Pilih tuturan adab bertamu & berpamitan.</p>
+              <span class="text-[11px] text-tertiary font-bold flex items-center gap-1 mt-1">
+                <span class="material-symbols-outlined text-[14px]">stars</span> +45 XP
+              </span>
+            </div>
+          </div>
+          <button onclick="launchGameArena('game6')" class="px-4 py-2 rounded-xl bg-secondary text-on-secondary text-xs font-bold shadow-xs active:scale-95 transition-transform shrink-0">
+            Dialog
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 5. BUDAYA & CERITA RAKYAT (view-budaya)                  -->
+    <!-- ======================================================== -->
+    <section id="view-budaya" class="app-view w-full flex flex-col px-4 pt-20 pb-24 hidden">
+      <!-- Category Filter Tabs -->
+      <div class="w-full pb-3 overflow-x-auto no-scrollbar flex items-center gap-2">
+        <button onclick="filterBudayaCategory(this, 'all')" class="budaya-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-primary text-on-primary shadow-xs whitespace-nowrap">
+          Semua Budaya
+        </button>
+        <button onclick="filterBudayaCategory(this, 'cerita')" class="budaya-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-surface-container-high text-on-surface-variant whitespace-nowrap">
+          Cerita Rakyat
+        </button>
+        <button onclick="filterBudayaCategory(this, 'tradisi')" class="budaya-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-surface-container-high text-on-surface-variant whitespace-nowrap">
+          Tradisi Adat
+        </button>
+        <button onclick="filterBudayaCategory(this, 'sastra')" class="budaya-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-surface-container-high text-on-surface-variant whitespace-nowrap">
+          Sastra & Pantun
+        </button>
+      </div>
+
+      <!-- Featured Story Card: Legenda Putri Mandalika -->
+      <div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-outline-variant/30 flex flex-col mb-4">
+        <div class="h-1.5 w-full songket-trim"></div>
+        <div class="relative w-full h-52 bg-surface-container overflow-hidden">
+          <img class="w-full h-full object-cover" alt="Pantai Seger & Putri Mandalika" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDclQFt9hDoRxTMJ8OaaHdsWuBpU9aCGCMMChYWPzG9cyVQF24XJsIjlyKLiGmuk_1LzvX3Lx7nsPR-PlKNAT8R7HAb19yDI2mAubWl5IuthT4n3Es0okWzJpe7TJNhKfKhcjtF9PrfnXlOUMTWxbTH0qpUYVjgzJ9kZMV-CYiM_TQLmwVHUouK9ADxhLZ381nrU1UQJXxDHCT2h4UsO4u8k7w8LT3r9RBtK-MFH_Ss"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-inverse-surface/40 to-transparent"></div>
+          
+          <div class="absolute top-3 inset-x-3 flex items-center justify-between">
+            <span class="px-2.5 py-1 rounded-full bg-primary/90 backdrop-blur-md text-white text-[11px] font-bold tracking-wide uppercase flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px]">stars</span> Kisah Legendaris
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px]">timer</span> 6 Menit Baca
+            </span>
+          </div>
+
+          <div class="absolute bottom-3 inset-x-3 text-white">
+            <p class="text-[11px] text-tertiary-fixed flex items-center gap-1 mb-0.5 font-semibold">
+              <span class="material-symbols-outlined text-[13px]">location_on</span> Pantai Seger, Kuta Lombok Selatan
+            </p>
+            <h1 class="text-xl font-extrabold text-white leading-tight">Legenda Putri Mandalika</h1>
+            <p class="text-xs text-white/90 line-clamp-1 mt-0.5">Kisah pengorbanan luhur demi kerukunan jagat gumi Sasak (Bau Nyale)</p>
+          </div>
+        </div>
+
+        <!-- Quick Story Sub-bar -->
+        <div class="p-3 bg-surface-container-low flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+              <span class="material-symbols-outlined text-[16px]">verified</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-on-surface">Tingkat Register: Alus Meno</p>
+              <p class="text-[11px] text-on-surface-variant">Bahasa Sasak Adat & Budaya Luhur</p>
+            </div>
+          </div>
+          <button onclick="toggleStoryBookmark(this)" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary active:scale-95 transition-transform">
+            <span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bilingual Audio Narration Player -->
+      <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col gap-2.5 mb-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+              <span class="material-symbols-outlined text-[16px]">record_voice_over</span>
+            </div>
+            <span class="text-xs font-bold text-on-surface">Narasi Dwibahasa Interaktif</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold">Sasak • Indo</span>
+        </div>
+
+        <div class="flex items-center gap-3 bg-surface-container-low p-3 rounded-xl">
+          <button onclick="toggleStoryAudioPlayback()" aria-label="Putar Suara" class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xs active:scale-95 transition-all shrink-0" id="storyAudioPlayBtn">
+            <span class="material-symbols-outlined text-[24px]" id="storyAudioIcon">play_arrow</span>
+          </button>
+          <div class="flex flex-col flex-1 min-w-0 gap-1">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-on-surface truncate" id="storyAudioTitle">Tutur Tetosan Mandalika</span>
+              <span class="text-on-surface-variant tabular-nums text-[11px]" id="storyAudioTimer">0:00 / 3:15</span>
+            </div>
+            <!-- Simulated Waveform -->
+            <div class="flex items-center gap-1 h-5 w-full cursor-pointer" onclick="toggleStoryAudioPlayback()">
+              <div class="w-1 bg-primary rounded-full h-3"></div>
+              <div class="w-1 bg-primary rounded-full h-5"></div>
+              <div class="w-1 bg-primary rounded-full h-2"></div>
+              <div class="w-1 bg-primary rounded-full h-4"></div>
+              <div class="w-1 bg-primary rounded-full h-5"></div>
+              <div class="w-1 bg-outline-variant rounded-full h-3"></div>
+              <div class="w-1 bg-outline-variant rounded-full h-4"></div>
+              <div class="w-1 bg-outline-variant rounded-full h-2"></div>
+              <div class="w-1 bg-outline-variant rounded-full h-5"></div>
+              <div class="w-1 bg-outline-variant rounded-full h-3"></div>
+            </div>
+          </div>
+          <button onclick="switchStoryLanguage(this)" class="px-2.5 py-1.5 rounded-lg bg-surface-container-high text-primary text-xs font-bold shrink-0">
+            1x Sasak
+          </button>
+        </div>
+      </div>
+
+      <!-- Story Acts Accordion -->
+      <div class="flex flex-col gap-2.5 mb-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-extrabold text-on-surface">Ringkasan Babak Cerita</h2>
+          <span class="text-[11px] text-primary font-semibold">Sentuh untuk membaca</span>
+        </div>
+
+        <!-- Babak 1 -->
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden shadow-xs">
+          <button onclick="toggleActAccordion(this)" class="w-full p-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <span class="w-7 h-7 rounded-full bg-primary-fixed text-on-primary-fixed text-xs flex items-center justify-center font-bold">1</span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">Putri Berbudi Luhur Tonjang Beru</p>
+                <p class="text-[11px] text-on-surface-variant">Awal mula keteduhan paras dan adab sang putri</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[20px] transition-transform duration-200">expand_more</span>
+          </button>
+          <div class="act-body px-3.5 pb-3.5 flex flex-col gap-2 text-xs text-on-surface leading-relaxed border-t border-outline-variant/10 pt-2">
+            <p>
+              Alkisah di bumi Lombok bagian selatan, berdirilah Kerajaan <span class="font-semibold text-primary">Tonjang Beru</span> yang makmur sentosa. Raja Tonjang Beru dan Permaisuri Dewi Seranting dianugerahi seorang putri bernama <span class="font-semibold text-primary">Putri Mandalika</span> yang terkenal akan kesantunan tutur kata serta welas asih bagi seluruh rakyat.
+            </p>
+            <div class="p-2.5 bg-surface-container rounded-xl flex items-start gap-2 italic text-on-surface">
+              <span class="material-symbols-outlined text-primary text-[18px] shrink-0">format_quote</span>
+              <span>"Solah solahing lampah, tatas tuhu taras ring jagat." (Kecantikan sejati bersumber dari kemurnian budi pekerti yang membawa ketenteraman bagi semesta.)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Babak 2 -->
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden shadow-xs">
+          <button onclick="toggleActAccordion(this)" class="w-full p-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <span class="w-7 h-7 rounded-full bg-primary-fixed text-on-primary-fixed text-xs flex items-center justify-center font-bold">2</span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">Pinangan & Dilema Perdamaian</p>
+                <p class="text-[11px] text-on-surface-variant">Ancaman pertumpahan darah antarkerajaan</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[20px] transition-transform duration-200">expand_more</span>
+          </button>
+          <div class="act-body hidden px-3.5 pb-3.5 flex flex-col gap-2 text-xs text-on-surface leading-relaxed border-t border-outline-variant/10 pt-2">
+            <p>
+              Pesona keanggunan Mandalika mengundang pinangan dari para pangeran kerajaan ternama: Pangeran Datu Lenting, Pangeran Arya Kuwang, dan lainnya. Persaingan kian memanas hingga muncul ancaman peperangan jika pinangan ditolak. Sang putri dirundung duka demi keselamatan rakyat tak berdosa.
+            </p>
+          </div>
+        </div>
+
+        <!-- Babak 3 -->
+        <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/30 overflow-hidden shadow-xs">
+          <button onclick="toggleActAccordion(this)" class="w-full p-3.5 flex items-center justify-between text-left">
+            <div class="flex items-center gap-3">
+              <span class="w-7 h-7 rounded-full bg-primary-fixed text-on-primary-fixed text-xs flex items-center justify-center font-bold">3</span>
+              <div>
+                <p class="text-xs font-bold text-on-surface">Pengorbanan Suci di Bukit Seger</p>
+                <p class="text-[11px] text-on-surface-variant">Menjadi Nyale agar dapat dinikmati bersama</p>
+              </div>
+            </div>
+            <span class="material-symbols-outlined text-primary text-[20px] transition-transform duration-200">expand_more</span>
+          </button>
+          <div class="act-body hidden px-3.5 pb-3.5 flex flex-col gap-2 text-xs text-on-surface leading-relaxed border-t border-outline-variant/10 pt-2">
+            <p>
+              Pada tanggal 20 bulan ke-10 penanggalan Sasak sebelum fajar menyingsing di Pantai Seger, Putri Mandalika bersabda bahwa ia ingin menjadi milik seluruh rakyat Lombok, lalu terjun ke deburan samudra. Seketika ribuan cacing laut warna-warni (*Nyale*) muncul sebagai berkah persatuan.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moral Wisdom & Tatas Tuhu Taras -->
+      <div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-outline-variant/30 mb-4">
+        <div class="bg-primary px-4 py-2.5 text-on-primary flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-tertiary-fixed text-[20px]">balance</span>
+            <span class="text-xs font-bold tracking-wide">Pesan Moral & Falsafah Sasak</span>
+          </div>
+          <span class="text-[10px] font-bold uppercase tracking-wider bg-primary-container px-2 py-0.5 rounded text-white">Luhur</span>
+        </div>
+        <div class="p-4 flex flex-col gap-2.5">
+          <p class="text-xs text-on-surface leading-relaxed">
+            Legenda ini mengajarkan nilai altruisme tertinggi: kerelaan mengorbankan ego pribadi demi merajut persatuan dan kerukunan bersama:
+          </p>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container p-2 rounded-xl">
+              <span class="text-xs text-primary font-extrabold block">Tatas</span>
+              <span class="text-[10px] text-on-surface-variant">Cerdas & Berwawasan</span>
+            </div>
+            <div class="bg-surface-container p-2 rounded-xl">
+              <span class="text-xs text-primary font-extrabold block">Tuhu</span>
+              <span class="text-[10px] text-on-surface-variant">Tulus & Sungguh-sungguh</span>
+            </div>
+            <div class="bg-surface-container p-2 rounded-xl">
+              <span class="text-xs text-primary font-extrabold block">Taras</span>
+              <span class="text-[10px] text-on-surface-variant">Tegas & Berani Berkorban</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cultural Vocab Interactive Chips -->
+      <div class="bg-surface-container-lowest rounded-2xl p-4 shadow-xs border border-outline-variant/30 flex flex-col gap-2.5 mb-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-primary text-[18px]">translate</span>
+            <h3 class="text-xs font-bold text-on-surface">Kosakata Budaya Terkait</h3>
+          </div>
+          <span class="text-[11px] text-on-surface-variant">Ketuk untuk arti</span>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button onclick="revealVocabDetail('Dedoro', 'Gadis / anak perawan bangsawan terhormat dalam silsilah masyarakat Sasak tempo dulu.')" class="px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-primary hover:text-white transition-all text-xs font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[15px]">menu_book</span> Dedoro
+          </button>
+          <button onclick="revealVocabDetail('Bau Nyale', 'Tradisi adat tahunan menangkap cacing laut warna-warni yang dipercaya penjelmaan Putri Mandalika.')" class="px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-primary hover:text-white transition-all text-xs font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[15px]">menu_book</span> Bau Nyale
+          </button>
+          <button onclick="revealVocabDetail('Kenyukan', 'Ungkapan karsa atau kehendak luhur yang disampaikan dengan penuh adab dan tata krama.')" class="px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-primary hover:text-white transition-all text-xs font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[15px]">menu_book</span> Kenyukan
+          </button>
+          <button onclick="revealVocabDetail('Bale Lumbung', 'Bangunan tradisional Sasak beratap alang-alang untuk menyimpan hasil panen padi lambang kemakmuran.')" class="px-3 py-1.5 rounded-xl bg-surface-container-high hover:bg-primary hover:text-white transition-all text-xs font-semibold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[15px]">menu_book</span> Bale Lumbung
+          </button>
+        </div>
+
+        <!-- Vocab Meaning Card Reveal -->
+        <div id="vocab-meaning-card" class="hidden p-3 rounded-xl bg-surface-container flex items-start gap-3 mt-1">
+          <div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-[16px]">spellcheck</span>
+          </div>
+          <div>
+            <p id="vocab-title" class="text-xs font-bold text-primary">Kosakata</p>
+            <p id="vocab-desc" class="text-xs text-on-surface mt-0.5 leading-snug">Arti</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col gap-2">
+        <button onclick="launchGameArena('game1')" class="w-full py-3 px-4 rounded-xl bg-primary text-on-primary text-xs font-bold flex items-center justify-center gap-2 shadow-sm active:translate-y-0.5 transition-all">
+          <span class="material-symbols-outlined text-[18px] text-tertiary-fixed">quiz</span>
+          <span>Ikuti Kuis Cerita Budaya (+30 XP)</span>
+        </button>
+        <button onclick="shareCurrentStory()" class="w-full py-2.5 px-4 rounded-xl bg-surface-container-high text-primary text-xs font-bold flex items-center justify-center gap-2 active:bg-surface-container-highest transition-all">
+          <span class="material-symbols-outlined text-[18px]">share</span>
+          <span>Bagikan Kisah ke Sahabat</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 6. PROFIL PENGGUNA & PENGATURAN (view-profil)            -->
+    <!-- ======================================================== -->
+    <section id="view-profil" class="app-view w-full flex flex-col px-4 pt-20 pb-24 hidden">
+      <!-- Profile Header Card -->
+      <div class="bg-surface-container-lowest rounded-2xl shadow-xs border border-outline-variant/30 p-4 flex flex-col gap-3 relative overflow-hidden mb-4">
+        <div class="w-full h-1.5 songket-trim rounded-full"></div>
+        <div class="flex items-start gap-3.5">
+          <div class="relative shrink-0">
+            <div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-tertiary-fixed-dim via-primary to-secondary-fixed shadow-xs flex items-center justify-center">
+              <img alt="Foto Profil" class="w-full h-full object-cover rounded-full bg-surface-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwMvvaUMAvNpjxqcH9EosVTlZU92UZ_GBy6L0Su1dSwMKsKPmq1BjlYpMjrHMWbv-IFnunTrtC9VikZ9M2jbce7VADIOhU55KcGFAIamSfA9zBOpjR5I0rxYAygdPHVPjnkHgrGASYmy_-dvbhhDFzwRob3L2PV5MxZKV9FcTu5bUJau6xC0ozDC6pehrnF61D4sKqHsc3pl5Hz8NMrc7_um238g7VCDOieVE9Zgy9"/>
+            </div>
+            <div class="absolute -bottom-1 -right-1 bg-primary text-on-primary w-5 h-5 rounded-full flex items-center justify-center shadow-xs">
+              <span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col min-w-0 flex-1 justify-center">
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-base text-on-surface font-extrabold truncate" id="profile-display-name">Lalu Arya</h1>
+              <span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] px-2 py-0.5 rounded-full font-bold">Madya</span>
+            </div>
+            <p class="text-xs text-on-surface-variant font-medium" id="profile-display-username">@lalu.arya</p>
+            <div class="flex items-center gap-1 mt-0.5 text-on-surface-variant text-[11px]">
+              <span class="material-symbols-outlined text-[15px] text-primary shrink-0">school</span>
+              <span class="truncate font-semibold" id="profile-display-level">Duta Krama Madya · Lt. 4</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <div class="bg-surface-container-low p-2.5 rounded-xl">
+          <p class="text-xs text-on-surface-variant leading-relaxed italic" id="profile-display-bio">
+            "Tetap tegar ngiring pelenggih lestariang krama Sasak adiluhung leq gumi Gora."
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button onclick="openEditProfileModal()" class="py-2.5 px-3 bg-primary text-on-primary rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 active:translate-y-0.5 transition-all">
+            <span class="material-symbols-outlined text-[16px]">edit_note</span> Ubah Profil
+          </button>
+          <button onclick="shareProfileCard()" class="py-2.5 px-3 bg-surface-container-high text-on-surface rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 active:translate-y-0.5 transition-all">
+            <span class="material-symbols-outlined text-[16px] text-tertiary">share</span> Bagikan
+          </button>
+        </div>
+      </div>
+
+      <!-- Bento Grid Statistik -->
+      <div class="flex flex-col gap-2.5 mb-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-primary text-[18px]">equalizer</span>
+            <h2 class="text-xs font-extrabold text-on-surface">Statistik Pembelajaran</h2>
+          </div>
+          <span class="text-[10px] text-secondary font-bold bg-secondary-container px-2 py-0.5 rounded-full">Musim Rinjani</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div class="bg-surface-container-lowest p-3 rounded-2xl border border-outline-variant/30 shadow-xs flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">translate</span>
+              </div>
+              <span class="material-symbols-outlined text-[15px] text-secondary">trending_up</span>
+            </div>
+            <div>
+              <span class="text-lg font-extrabold text-on-surface">84</span>
+              <p class="text-[11px] text-on-surface-variant font-medium">Kosakata Krama</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest p-3 rounded-2xl border border-outline-variant/30 shadow-xs flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="w-8 h-8 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">sports_esports</span>
+              </div>
+              <span class="text-[10px] font-bold text-secondary">100% Sah</span>
+            </div>
+            <div>
+              <span class="text-lg font-extrabold text-on-surface" id="profile-games-played">28</span>
+              <p class="text-[11px] text-on-surface-variant font-medium">Sesi Arena Tuntas</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest p-3 rounded-2xl border border-outline-variant/30 shadow-xs flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="w-8 h-8 rounded-lg bg-tertiary-fixed flex items-center justify-center text-tertiary">
+                <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+              </div>
+              <span class="text-[10px] text-tertiary font-bold">+180 mg ini</span>
+            </div>
+            <div>
+              <span class="text-lg font-extrabold text-tertiary" id="profile-total-xp">1.450</span>
+              <p class="text-[11px] text-on-surface-variant font-medium">Total Poin XP</p>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest p-3 rounded-2xl border border-outline-variant/30 shadow-xs flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1.5">
+              <div class="w-8 h-8 rounded-lg bg-error-container flex items-center justify-center text-error">
+                <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+              </div>
+              <span class="text-[10px] text-error font-bold">Aktif</span>
+            </div>
+            <div>
+              <span class="text-lg font-extrabold text-on-surface" id="profile-streak-count">7 Hari</span>
+              <p class="text-[11px] text-on-surface-variant font-medium">Rentetan Harian</p>
+            </div>
+          </div>
+
+          <!-- Full Width Progress Meter -->
+          <div class="col-span-2 bg-surface-container-lowest p-3 rounded-2xl border border-outline-variant/30 shadow-xs flex flex-col gap-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-on-surface">Penyelesaian Kurikulum</span>
+              <span class="text-xs font-bold text-primary">78%</span>
+            </div>
+            <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+              <div class="bg-gradient-to-r from-primary to-secondary h-full rounded-full" style="width: 78%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-on-surface-variant">
+              <span>Target: 100 Kosakata</span>
+              <span>Sisa 16 Kosakata Lagi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lencana Budaya Sasak -->
+      <div class="flex flex-col gap-2.5 mb-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">military_tech</span>
+            <h2 class="text-xs font-extrabold text-on-surface">Lencana Budaya Sasak</h2>
+          </div>
+          <span class="text-[11px] text-on-surface-variant">4 dari 5 Terbuka</span>
+        </div>
+
+        <div class="grid grid-cols-5 gap-2 bg-surface-container-lowest p-3 rounded-2xl border border-outline-variant/30 shadow-xs">
+          <button onclick="openBadgeDetail('Penjelajah Kata', 'Lencana penjelajah kosakata Sasak Krama yang telah menempuh 50 kata pertama.', 'Emas Murni', 'explore', 'bg-tertiary-fixed text-tertiary')" class="flex flex-col items-center gap-1 active:scale-95 transition-transform">
+            <div class="w-10 h-10 rounded-xl bg-tertiary-fixed text-tertiary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">explore</span>
+            </div>
+            <span class="text-[10px] font-semibold text-center text-on-surface truncate w-full">Penjelajah</span>
+          </button>
+
+          <button onclick="openBadgeDetail('Penjaga Bahasa', 'Dianugerahkan kepada pembelajar yang menjunjung nilai santun unggah-ungguh berbahasa Sasak.', 'Zamrud Pilihan', 'shield', 'bg-primary text-on-primary')" class="flex flex-col items-center gap-1 active:scale-95 transition-transform">
+            <div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+            </div>
+            <span class="text-[10px] font-semibold text-center text-on-surface truncate w-full">Penjaga</span>
+          </button>
+
+          <button onclick="openBadgeDetail('Master Kosakata', 'Mencapai akurasi sempurna pada kuis kosakata krama halus.', 'Benang Emas', 'auto_stories', 'bg-tertiary-fixed-dim text-on-tertiary-fixed-variant')" class="flex flex-col items-center gap-1 active:scale-95 transition-transform">
+            <div class="w-10 h-10 rounded-xl bg-tertiary-fixed-dim text-on-tertiary-fixed-variant flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+            </div>
+            <span class="text-[10px] font-semibold text-center text-on-surface truncate w-full">Master</span>
+          </button>
+
+          <button onclick="openBadgeDetail('Konsisten Belajar', 'Menjaga semangat belajar selama 7 hari berturut-turut tanpa jeda.', 'Api Semangat', 'local_fire_department', 'bg-secondary-fixed text-on-secondary-fixed')" class="flex flex-col items-center gap-1 active:scale-95 transition-transform">
+            <div class="w-10 h-10 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+              <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+            </div>
+            <span class="text-[10px] font-semibold text-center text-on-surface truncate w-full">Konsisten</span>
+          </button>
+
+          <button onclick="openBadgeDetail('Sahabat Budaya Sasak (Terkunci)', 'Kunjungi seluruh modul cerita rakyat Sasak & lelakaq adat. Progress: 3/5.', 'Perak Terkunci', 'lock', 'bg-surface-container text-outline')" class="flex flex-col items-center gap-1 opacity-60 active:scale-95 transition-transform">
+            <div class="w-10 h-10 rounded-xl bg-surface-container text-outline flex items-center justify-center relative">
+              <span class="material-symbols-outlined text-[20px]">temple_buddhist</span>
+              <span class="material-symbols-outlined text-[11px] absolute bottom-0.5 right-0.5 text-on-surface-variant">lock</span>
+            </div>
+            <span class="text-[10px] font-semibold text-center text-on-surface-variant truncate w-full">Sahabat</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings & Preferences List -->
+      <div class="bg-surface-container-lowest rounded-2xl shadow-xs border border-outline-variant/30 p-4 flex flex-col gap-3 mb-4">
+        <h3 class="text-xs font-bold text-on-surface uppercase tracking-wider">Preferensi Aplikasi</h3>
+
+        <!-- Reminder toggle -->
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-[18px]">alarm</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-on-surface">Pengingat Belajar Harian</p>
+              <p class="text-[11px] text-on-surface-variant">Pukul 19:30 WITA</p>
+            </div>
+          </div>
+          <input type="checkbox" checked onchange="showToast(this.checked ? 'Pengingat 19:30 WITA diaktifkan' : 'Pengingat dinonaktifkan')" class="rounded text-primary focus:ring-primary w-4 h-4"/>
+        </div>
+
+        <!-- Dialect Voice toggle -->
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-[18px]">graphic_eq</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-on-surface">Audio Dialek Pejanggik</p>
+              <p class="text-[11px] text-on-surface-variant">Pelafalan vokal penutur asli</p>
+            </div>
+          </div>
+          <input type="checkbox" checked onchange="showToast(this.checked ? 'Dialek Pejanggik aktif' : 'Dialek standar aktif')" class="rounded text-primary focus:ring-primary w-4 h-4"/>
+        </div>
+
+        <button onclick="showToast('Pusat Bantuan & Tim Budayawan siap melayani!')" class="flex items-center justify-between gap-3 text-left pt-1 border-t border-outline-variant/20">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0">
+              <span class="material-symbols-outlined text-[18px]">help_center</span>
+            </div>
+            <div>
+              <p class="text-xs font-bold text-on-surface">Pusat Bantuan & Kurasi Adat</p>
+              <p class="text-[11px] text-on-surface-variant">Hubungi kurator bahasa</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[18px] text-on-surface-variant">chevron_right</span>
+        </button>
+
+        <!-- Logout Trigger -->
+        <button onclick="openLogoutModal()" class="mt-2 w-full py-2.5 px-3 bg-error-container text-on-error-container rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 active:scale-98 transition-all">
+          <span class="material-symbols-outlined text-[16px]">logout</span>
+          <span>Keluar dari Akun</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- BOTTOM TAB NAVIGATION BAR                  -->
+  <!-- ========================================== -->
+  <nav id="app-bottom-nav" class="fixed bottom-0 inset-x-0 z-40 bg-surface/95 backdrop-blur-xl border-t border-outline-variant/30 pb-safe hidden">
+    <div class="max-w-xl mx-auto flex justify-around items-center h-16 px-1">
+      <!-- Beranda -->
+      <button onclick="navigateTo('beranda')" class="nav-tab-btn flex flex-col items-center justify-center gap-1 w-14 h-12 text-on-surface-variant hover:text-primary transition-all" data-target="beranda">
+        <span class="material-symbols-outlined text-[22px] nav-icon">home</span>
+        <span class="text-[10px] font-semibold nav-label">Beranda</span>
+      </button>
+
+      <!-- Belajar -->
+      <button onclick="navigateTo('belajar')" class="nav-tab-btn flex flex-col items-center justify-center gap-1 w-14 h-12 text-on-surface-variant hover:text-primary transition-all" data-target="belajar">
+        <span class="material-symbols-outlined text-[22px] nav-icon">menu_book</span>
+        <span class="text-[10px] font-semibold nav-label">Belajar</span>
+      </button>
+
+      <!-- Games -->
+      <button onclick="navigateTo('games')" class="nav-tab-btn flex flex-col items-center justify-center gap-1 w-14 h-12 text-on-surface-variant hover:text-primary transition-all" data-target="games">
+        <span class="material-symbols-outlined text-[22px] nav-icon">sports_esports</span>
+        <span class="text-[10px] font-semibold nav-label">Games</span>
+      </button>
+
+      <!-- Budaya -->
+      <button onclick="navigateTo('budaya')" class="nav-tab-btn flex flex-col items-center justify-center gap-1 w-14 h-12 text-on-surface-variant hover:text-primary transition-all" data-target="budaya">
+        <span class="material-symbols-outlined text-[22px] nav-icon">temple_buddhist</span>
+        <span class="text-[10px] font-semibold nav-label">Budaya</span>
+      </button>
+
+      <!-- Profil -->
+      <button onclick="navigateTo('profil')" class="nav-tab-btn flex flex-col items-center justify-center gap-1 w-14 h-12 text-on-surface-variant hover:text-primary transition-all" data-target="profil">
+        <span class="material-symbols-outlined text-[22px] nav-icon">account_circle</span>
+        <span class="text-[10px] font-semibold nav-label">Profil</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- MODAL: INTERACTIVE GAME ARENA              -->
+  <!-- ========================================== -->
+  <div id="game-arena-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden flex-col justify-end sm:justify-center items-center p-0 sm:p-4 transition-all">
+    <div class="bg-surface w-full max-w-lg sm:rounded-2xl rounded-t-2xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative border border-outline-variant/30">
+      <!-- Arena Header -->
+      <div class="flex items-center justify-between px-4 py-3 bg-surface-container border-b border-outline-variant/20 shrink-0">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center" id="arena-header-icon">
+            <span class="material-symbols-outlined text-[18px]">sports_esports</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-on-surface leading-tight" id="arena-header-title">Arena Game</h3>
+            <span class="text-[10px] text-on-surface-variant" id="arena-header-counter">Soal 1 dari 3</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1 bg-surface-container-highest px-2 py-0.5 rounded-full text-tertiary font-bold text-xs">
+            <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+            <span id="arena-xp-badge">+0 XP</span>
+          </div>
+          <button onclick="closeGameArenaConfirm()" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:text-error hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Linear Progress Bar -->
+      <div class="w-full bg-surface-container-high h-1.5 shrink-0 overflow-hidden">
+        <div id="arena-progress-line" class="bg-primary h-full transition-all duration-300" style="width: 33%"></div>
+      </div>
+
+      <!-- Dynamic Gameplay Content Body -->
+      <div id="arena-body-content" class="p-4 overflow-y-auto flex-1 flex flex-col gap-3">
+        <!-- Rendered by JavaScript dynamically -->
+      </div>
+
+      <!-- Arena Result Summary Screen -->
+      <div id="arena-result-screen" class="hidden p-6 flex-1 flex flex-col items-center justify-center text-center gap-3">
+        <div class="w-16 h-16 rounded-full bg-tertiary-fixed text-tertiary flex items-center justify-center shadow-inner">
+          <span class="material-symbols-outlined text-[40px]" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+        </div>
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-secondary">Tantangan Rampung!</span>
+          <h2 class="text-xl font-extrabold text-on-surface mt-0.5">Solah Senop! (Hebat Sekali)</h2>
+          <p class="text-xs text-on-surface-variant mt-1" id="arena-result-message">Penguasaan krama Sasak Anda meningkat pesat.</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 w-full max-w-xs pt-1">
+          <div class="bg-surface-container p-2.5 rounded-xl flex flex-col items-center">
+            <span class="text-[10px] text-on-surface-variant font-medium">Skor XP</span>
+            <span class="text-sm font-bold text-primary" id="arena-result-xp">+45</span>
+          </div>
+          <div class="bg-surface-container p-2.5 rounded-xl flex flex-col items-center">
+            <span class="text-[10px] text-on-surface-variant font-medium">Akurasi</span>
+            <span class="text-sm font-bold text-secondary" id="arena-result-accuracy">100%</span>
+          </div>
+          <div class="bg-surface-container p-2.5 rounded-xl flex flex-col items-center">
+            <span class="text-[10px] text-on-surface-variant font-medium">Koin</span>
+            <span class="text-sm font-bold text-tertiary" id="arena-result-coins">+20</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 w-full max-w-xs pt-3">
+          <button onclick="replayCurrentGame()" class="w-full py-2.5 bg-primary text-on-primary text-xs font-bold rounded-xl shadow-xs active:scale-95 transition-all">
+            Main Lagi
+          </button>
+          <button onclick="exitGameArena()" class="w-full py-2 bg-surface-container-high text-on-surface text-xs font-bold rounded-xl hover:bg-surface-container-highest transition-all">
+            Kembali ke Arena
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: EDIT PROFIL                         -->
+  <!-- ========================================== -->
+  <div id="modal-edit-profile" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest max-w-sm w-full rounded-2xl shadow-xl flex flex-col overflow-hidden border border-outline-variant/30">
+      <div class="px-4 py-3 bg-surface-container flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+          <h3 class="text-sm font-bold text-on-surface">Ubah Profil Pengguna</h3>
+        </div>
+        <button onclick="closeEditProfileModal()" class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <form onsubmit="saveEditedProfile(event)" class="p-4 flex flex-col gap-3">
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-on-surface">Nama Lengkap</label>
+          <input id="edit-profile-name" type="text" required class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-on-surface">Nama Pengguna (@)</label>
+          <input id="edit-profile-username" type="text" required class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label class="text-xs font-bold text-on-surface">Catatan Pribadi / Bio</label>
+          <textarea id="edit-profile-bio" rows="3" class="w-full px-3 py-2 rounded-xl bg-surface-container-low text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+        </div>
+        <div class="flex items-center gap-2 pt-1">
+          <button type="button" onclick="closeEditProfileModal()" class="flex-1 py-2 rounded-xl bg-surface-container-high text-on-surface text-xs font-semibold">Batal</button>
+          <button type="submit" class="flex-1 py-2 rounded-xl bg-primary text-on-primary text-xs font-bold shadow-xs">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: BADGE DETAIL POPUP                  -->
+  <!-- ========================================== -->
+  <div id="modal-badge-detail" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest max-w-xs w-full rounded-2xl shadow-xl flex flex-col p-5 text-center gap-2.5 border border-outline-variant/30">
+      <div id="badge-detail-icon-wrap" class="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center shadow-xs">
+        <span id="badge-detail-icon" class="material-symbols-outlined text-[28px]">military_tech</span>
+      </div>
+      <div>
+        <h4 id="badge-detail-title" class="text-sm font-bold text-on-surface">Nama Lencana</h4>
+        <span id="badge-detail-tier" class="text-[10px] font-bold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full inline-block mt-0.5">Tier</span>
+        <p id="badge-detail-desc" class="text-xs text-on-surface-variant mt-2 leading-relaxed">Deskripsi filosofi lencana budaya.</p>
+      </div>
+      <button onclick="document.getElementById('modal-badge-detail').classList.replace('flex','hidden')" class="w-full py-2 rounded-xl bg-primary text-on-primary text-xs font-bold mt-1">
+        Tutup
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: LOGOUT CONFIRMATION                 -->
+  <!-- ========================================== -->
+  <div id="modal-logout-confirm" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-surface-container-lowest max-w-xs w-full rounded-2xl shadow-xl flex flex-col p-5 text-center gap-2.5 border border-outline-variant/30">
+      <div class="w-10 h-10 rounded-full bg-error-container text-error flex items-center justify-center mx-auto">
+        <span class="material-symbols-outlined text-[24px]">logout</span>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-on-surface">Keluar dari Akun?</h4>
+        <p class="text-xs text-on-surface-variant mt-0.5">Semua data capaian belajar dan rentetan hari tetap tersimpan di perangkat ini.</p>
+      </div>
+      <div class="flex items-center gap-2 pt-2">
+        <button onclick="document.getElementById('modal-logout-confirm').classList.replace('flex','hidden')" class="flex-1 py-2 rounded-xl bg-surface-container-high text-on-surface text-xs font-semibold">Batal</button>
+        <button onclick="confirmLogout()" class="flex-1 py-2 rounded-xl bg-error text-on-error text-xs font-bold">Ya, Keluar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- CORE SCRIPT ENGINE                         -->
+  <!-- ========================================== -->
+  <script>
+    // --- 1. LOCAL STATE & SOUND SYSTEM ---
+    const SoundFx = {
+      audioCtx: null,
+      init() {
+        if (!this.audioCtx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) this.audioCtx = new AC();
+        }
+        if (this.audioCtx && this.audioCtx.state === 'suspended') {
+          this.audioCtx.resume();
+        }
+      },
+      playTone(freq, duration, type = 'sine') {
+        try {
+          this.init();
+          if (!this.audioCtx) return;
+          const now = this.audioCtx.currentTime;
+          const osc = this.audioCtx.createOscillator();
+          const gain = this.audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, now);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+          osc.connect(gain);
+          gain.connect(this.audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + duration);
+        } catch (e) {}
+      },
+      playSuccess() {
+        this.playTone(523.25, 0.1);
+        setTimeout(() => this.playTone(659.25, 0.1), 80);
+        setTimeout(() => this.playTone(783.99, 0.25), 160);
+      },
+      playError() {
+        this.playTone(220, 0.15, 'sawtooth');
+        setTimeout(() => this.playTone(196, 0.25, 'sawtooth'), 120);
+      },
+      speakWord(text) {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utt = new SpeechSynthesisUtterance(text);
+          utt.lang = 'id-ID';
+          utt.rate = 0.82;
+          utt.pitch = 1.05;
+          window.speechSynthesis.speak(utt);
+        }
+      }
+    };
+
+    function playVoicePronounce(text) {
+      SoundFx.speakWord(text);
+      showToast(`Mendengarkan ucapan: "${text}"`);
+    }
+
+    // --- 2. USER STATE PERSISTENCE ---
+    const STATE_KEY = 'aksara_user_state';
+    let appState = {
+      user: {
+        name: 'Lalu Arya',
+        username: '@lalu.arya',
+        bio: 'Tetap tegar ngiring pelenggih lestariang krama Sasak adiluhung leq gumi Gora.',
+        level: 'Duta Krama Madya · Lt. 4'
+      },
+      xp: 1450,
+      coins: 320,
+      streak: 7,
+      bookmarkedWords: ['Pelinggih', 'Napi Gati', 'Bau Nyale'],
+      activeFlashcardIdx: 0
+    };
+
+    function loadAppState() {
+      try {
+        const stored = localStorage.getItem(STATE_KEY);
+        if (stored) {
+          appState = { ...appState, ...JSON.parse(stored) };
+        }
+      } catch (e) {}
+      syncAllUIWithState();
+    }
+
+    function saveAppState() {
+      try {
+        localStorage.setItem(STATE_KEY, JSON.stringify(appState));
+      } catch (e) {}
+      syncAllUIWithState();
+    }
+
+    function syncAllUIWithState() {
+      // Header & Dashboard stats
+      const xpEls = [
+        document.getElementById('stat-xp-count'),
+        document.getElementById('profile-total-xp'),
+        document.getElementById('games-total-xp')
+      ];
+      xpEls.forEach(el => {
+        if (el) el.textContent = Number(appState.xp).toLocaleString('id-ID');
+      });
+
+      const coinsEls = [document.getElementById('games-total-coins')];
+      coinsEls.forEach(el => {
+        if (el) el.textContent = Number(appState.coins).toLocaleString('id-ID');
+      });
+
+      const streakEls = [
+        document.getElementById('streak-counter'),
+        document.getElementById('profile-streak-count')
+      ];
+      streakEls.forEach(el => {
+        if (el) el.textContent = `${appState.streak} Hari`;
+      });
+
+      // Profile details
+      const nameEl = document.getElementById('profile-display-name');
+      const dashNameEl = document.getElementById('dashboard-user-name');
+      const unameEl = document.getElementById('profile-display-username');
+      const bioEl = document.getElementById('profile-display-bio');
+      const lvlEl = document.getElementById('profile-display-level');
+
+      if (nameEl) nameEl.textContent = appState.user.name;
+      if (dashNameEl) dashNameEl.textContent = appState.user.name;
+      if (unameEl) unameEl.textContent = appState.user.username;
+      if (bioEl) bioEl.textContent = `"${appState.user.bio}"`;
+      if (lvlEl) lvlEl.textContent = appState.user.level;
+    }
+
+    function awardPoints(xpEarned, coinsEarned = 10) {
+      appState.xp += xpEarned;
+      appState.coins += coinsEarned;
+      saveAppState();
+      SoundFx.playSuccess();
+      showToast(`+${xpEarned} XP Budaya & +${coinsEarned} Koin diraih!`);
+    }
+
+    // --- 3. TOAST MESSAGING ---
+    let toastTimeout = null;
+    function showToast(text, icon = 'check_circle') {
+      const toast = document.getElementById('app-toast');
+      const txt = document.getElementById('toast-text');
+      const icn = document.getElementById('toast-icon');
+      if (!toast || !txt) return;
+
+      txt.textContent = text;
+      if (icn) icn.textContent = icon;
+
+      toast.classList.remove('opacity-0', '-translate-y-4');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', '-translate-y-4');
+      }, 2400);
+    }
+
+    // --- 4. NAVIGATION ROUTER ---
+    let currentActiveView = 'landing';
+
+    function navigateTo(viewName) {
+      const views = ['landing', 'beranda', 'belajar', 'games', 'budaya', 'profil'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        if (el) {
+          if (v === viewName) {
+            el.classList.remove('hidden');
+          } else {
+            el.classList.add('hidden');
+          }
+        }
+      });
+
+      // Header & Bottom Nav visibility
+      const header = document.getElementById('main-app-header');
+      const bottomNav = document.getElementById('app-bottom-nav');
+      if (viewName === 'landing') {
+        if (header) header.classList.add('hidden');
+        if (bottomNav) bottomNav.classList.add('hidden');
+      } else {
+        if (header) header.classList.remove('hidden');
+        if (bottomNav) bottomNav.classList.remove('hidden');
+      }
+
+      // Update Nav active classes
+      const navBtns = document.querySelectorAll('.nav-tab-btn');
+      navBtns.forEach(btn => {
+        const target = btn.getAttribute('data-target');
+        const icon = btn.querySelector('.nav-icon');
+        const label = btn.querySelector('.nav-label');
+        if (target === viewName) {
+          btn.classList.add('text-primary');
+          btn.classList.remove('text-on-surface-variant');
+          if (icon) icon.style.fontVariationSettings = "'FILL' 1";
+          if (label) label.classList.add('font-bold');
+        } else {
+          btn.classList.remove('text-primary');
+          btn.classList.add('text-on-surface-variant');
+          if (icon) icon.style.fontVariationSettings = "'FILL' 0";
+          if (label) label.classList.remove('font-bold');
+        }
+      });
+
+      // Update subtext in header
+      const sub = document.getElementById('header-subtext');
+      if (sub) {
+        const titles = {
+          beranda: 'Beranda Pembelajaran',
+          belajar: 'Sesi Belajar Interaktif',
+          games: 'Arena Games Edukatif',
+          budaya: 'Kisah Adat & Cerita Rakyat',
+          profil: 'Profil & Capaian Belajar'
+        };
+        sub.textContent = titles[viewName] || 'Pelestarian Bahasa Krama';
+      }
+
+      currentActiveView = viewName;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function enterAppDirectly(target = 'beranda') {
+      navigateTo(target);
+      showToast('Selamat datang di AKSARA Sasak!');
+    }
+
+    // --- 5. AUTH LOGIC ---
+    let authMode = 'login';
+    function switchAuthTab(mode) {
+      authMode = mode;
+      const tabLogin = document.getElementById('tabLogin');
+      const tabRegister = document.getElementById('tabRegister');
+      const nameGroup = document.getElementById('nameFieldGroup');
+      const heading = document.getElementById('authHeading');
+      const subheading = document.getElementById('authSubheading');
+      const submitText = document.getElementById('btnSubmitAuthText');
+
+      if (mode === 'login') {
+        tabLogin.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold bg-primary text-on-primary shadow-xs transition-all";
+        tabRegister.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold text-on-surface-variant hover:text-primary transition-all";
+        nameGroup.classList.add('hidden');
+        heading.textContent = "Selamat Datang, Semeton!";
+        subheading.textContent = "Masuk untuk melanjutkan capaian belajar Sasak Halus dan simpan poin budayamu.";
+        submitText.textContent = "Masuk Akun";
+      } else {
+        tabRegister.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold bg-primary text-on-primary shadow-xs transition-all";
+        tabLogin.className = "flex-1 py-2 text-center rounded-lg text-xs font-bold text-on-surface-variant hover:text-primary transition-all";
+        nameGroup.classList.remove('hidden');
+        heading.textContent = "Daftar Akun Baru";
+        subheading.textContent = "Bergabunglah menjaga bahasa luhur Sasak Halus bersama ribuan generasi muda.";
+        submitText.textContent = "Daftar Sekarang";
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('inputAuthPassword');
+      const icon = document.getElementById('eyeIcon');
+      if (input && icon) {
+        const isPass = input.type === 'password';
+        input.type = isPass ? 'text' : 'password';
+        icon.textContent = isPass ? 'visibility_off' : 'visibility';
+      }
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const nameVal = document.getElementById('inputAuthName')?.value.trim();
+      if (authMode === 'register' && nameVal) {
+        appState.user.name = nameVal;
+        appState.user.username = '@' + nameVal.toLowerCase().replace(/\s+/g, '.');
+        saveAppState();
+      }
+      enterAppDirectly('beranda');
+    }
+
+    function openLogoutModal() {
+      const modal = document.getElementById('modal-logout-confirm');
+      if (modal) {
+        modal.classList.replace('hidden', 'flex');
+      }
+    }
+
+    function confirmLogout() {
+      document.getElementById('modal-logout-confirm').classList.replace('flex', 'hidden');
+      navigateTo('landing');
+      showToast('Berhasil keluar dari akun.');
+    }
+
+    // --- 6. FLASHCARDS DATA & CONTROLS ---
+    const FLASHCARDS = [
+      {
+        word: "Napi Gati",
+        phonetic: "/na·pi ga·ti/",
+        pos: "Kata Tanya Penghormatan",
+        meaning: "Ada apa / Ada urusan apa gerangan?",
+        detail: "Bentuk pertanyaan santun dan penuh rasa hormat yang ditujukan saat menyambut atau menanyakan keperluan lawan bicara.",
+        context: "Digunakan ketika menyapa tamu agung, orang tua, pemuka adat (Tuan Guru/Tokoh Krama), atau dalam musyawarah.",
+        exampleSasak: '"Silaq pelinggih, napi gati sane dados tiang bantu?"',
+        exampleIndo: '(Silakan Tuan/Bapak, apakah ada hal yang dapat saya bantu?)',
+        etiquette: 'Hindari melafalkan dengan intonasi tinggi. Ucapkan dengan sedikit menundukkan kepala untuk menjaga kehalusan pekerti (tatas tuhu tutur).',
+        situation: 'Tata Krama Berjumpa Sesepuh',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDHF_lBMGBtOr1novSyzqDRncqNME3HF4XPD5UrR66Aa9NVowXnmi2aZOcQlkrT32EeZxFKwpFTxnXG01IA0TgZoDbtETetcNhfSqtwWcT0a_3D4-NCXDt3nnwXrws0kB_xeauuFVULfwTjuquxjF12GeHNP9plRV7aFKnEbWsHawMb5vNbxvLad0NMtvNn2DI7aVd3rKSTybLBXKeB2rIRfMRt9UVOrtKm-_EP0Xso',
+        quizPrompt: 'Manakah situasi yang paling tepat untuk mengucap "Napi Gati"?',
+        quizA: 'A. Bertanya santun keperluan tamu yang baru tiba di Bale',
+        quizB: 'B. Mengajak teman sebaya pergi ke pasar tradisional',
+        quizCorrect: 'A',
+        explanation: 'Benar sekali! "Napi Gati" adalah etika menyapa tamu terhormat.'
+      },
+      {
+        word: "Pelinggih",
+        phonetic: "/pə-ling-gih/",
+        pos: "Pronomina Persona Honorifik",
+        meaning: "Anda / Beliau / Tuan (Sangat Dihormati)",
+        detail: "Kata ganti orang kedua atau ketiga paling takzim dalam sistem tingkatan tutur Sasak Krama Inggil.",
+        context: "Ditujukan secara khusus kepada pemuka agama (Tuan Guru), tokoh adat, pejabat terhormat, atau sesepuh klan.",
+        exampleSasak: '"Pelinggih sampun rawuh ring bale lumbung semeton."',
+        exampleIndo: '(Beliau/Anda yang terhormat telah tiba di kediaman lumbung kami.)',
+        etiquette: 'Jangan gunakan pada kawan sebaya dalam suasana bercanda santai karena akan terdengar ironis atau berlebihan.',
+        situation: 'Menyambut Tamu Kehormatan',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBeJC6IbTvb14j5_BW9QibrbO8kN5JACll9sdeXpAayRiodN6mjAtaVL_dHuRhDGHyRB-1enJ3dnysq_HH-TdJ0cdJqnQsX4rV_3eWvlA-3_JBHran0DQ6__1t4NTJr2j7A05s0iHjGHj9d8Mt_v5MkQHNyxwt86FcaDobo-sivYZZDSdlpcuUoJWBGbIm4DW9y8wGZd6V4BeE7oZpNTnsfJWJ-Kezj6xupZvxApOex',
+        quizPrompt: 'Siapakah lawan bicara yang layak disapa dengan "Pelinggih"?',
+        quizA: 'A. Tetua adat, Tuan Guru, dan orang yang dituakan',
+        quizB: 'B. Anak kecil yang baru mulai belajar berbicara',
+        quizCorrect: 'A',
+        explanation: 'Tepat! "Pelinggih" adalah kata ganti honorifik tertinggi.'
+      },
+      {
+        word: "Nunas Lugra",
+        phonetic: "/nu·nas lu·gra/",
+        pos: "Frasa Permohonan Santun",
+        meaning: "Mohon izin / Minta permisi",
+        detail: "Frasa permohonan pamit atau izin melintas di hadapan majelis tetua adat.",
+        context: "Diucapkan saat hendak berbicara dalam forum begawe (musyawarah) atau saat melewati orang tua.",
+        exampleSasak: '"Nunas lugra tiang juluq, jagi matur ngenani perarem desa."',
+        exampleIndo: '(Mohon izin terlebih dahulu, hamba hendak menyampaikan tentang aturan desa.)',
+        etiquette: 'Selalu sertakan gerakan tangan kanan mengarah sedikit ke bawah dengan telapak terbuka.',
+        situation: 'Tata Krama Sidang Musyawarah Adat',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAf6EQtgg-4V2OcLADkA1O9BB8TZbSAVLkqce8q-fLQ4fiM5_0yajACo0GSiJIejLn-4H4W61VktEq3wdcyhqZKN15u4UYpORJMkc9hdus28Cg5DgpN9bMwZdOFnwIlljFawdHKTmYqun_Z-HVWX5k_0mnXVwPXyIsm_ARoB14zLhRwqk6h-TzI_3O99rtzaE0YcUFp8lpvU9J7-4VzgjUIAXz3Gs5_jAC6VaVfSwC4',
+        quizPrompt: 'Kapan frasa "Nunas Lugra" paling lazim diucapkan?',
+        quizA: 'A. Meminta izin bicara di hadapan tetua dalam rapat adat',
+        quizB: 'B. Menawar harga sayur di pasar tradisional',
+        quizCorrect: 'A',
+        explanation: 'Benar! "Nunas Lugra" adalah permohonan restu/izin santun.'
+      },
+      {
+        word: "Medaar",
+        phonetic: "/mə·da·ar/",
+        pos: "Verba Krama (Makan)",
+        meaning: "Bersantap / Menikmati Jamuan",
+        detail: "Kata kerja santun untuk mempersilakan orang terhormat bersantap makanan.",
+        context: "Digunakan tuan rumah saat menghidangkan santapan dalam tradisi besiru atau begawe.",
+        exampleSasak: '"Silaq pelinggih, iring katuran medaar sesarengan."',
+        exampleIndo: '(Silakan Yang Terhormat, mari bersama-sama menikmati jamuan makan.)',
+        etiquette: 'Dipersilakan terlebih dahulu kepada yang paling sepuh sebelum generasi muda mengambil makanan.',
+        situation: 'Jamuan Makan Adat (Begibung)',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDclQFt9hDoRxTMJ8OaaHdsWuBpU9aCGCMMChYWPzG9cyVQF24XJsIjlyKLiGmuk_1LzvX3Lx7nsPR-PlKNAT8R7HAb19yDI2mAubWl5IuthT4n3Es0okWzJpe7TJNhKfKhcjtF9PrfnXlOUMTWxbTH0qpUYVjgzJ9kZMV-CYiM_TQLmwVHUouK9ADxhLZ381nrU1UQJXxDHCT2h4UsO4u8k7w8LT3r9RBtK-MFH_Ss',
+        quizPrompt: 'Padanan kata "Makan" santun untuk sesepuh adalah...',
+        quizA: 'A. Medaar',
+        quizB: 'B. Mangan biasa',
+        quizCorrect: 'A',
+        explanation: '"Medaar" adalah padanan krama halus untuk makan.'
+      },
+      {
+        word: "Matur Tampi Asih",
+        phonetic: "/ma·tur tam·pi a·sih/",
+        pos: "Ungkapan Terima Kasih",
+        meaning: "Menghaturkan terima kasih yang mendalam",
+        detail: "Ungkapan rasa syukur dan terima kasih adiluhung khas Sasak krama.",
+        context: "Disampaikan atas bantuan, wejangan nasehat, atau jamuan yang telah diterima dari tetua.",
+        exampleSasak: '"Matur tampi asih sanget antuk pituduh luhur pelinggih."',
+        exampleIndo: '(Terima kasih yang mendalam atas petunjuk dan nasihat luhur Anda.)',
+        etiquette: 'Disertai dengan menangkupkan kedua telapak tangan di depan dada sejenak.',
+        situation: 'Ungkapan Bakti & Penghormatan',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCwMvvaUMAvNpjxqcH9EosVTlZU92UZ_GBy6L0Su1dSwMKsKPmq1BjlYpMjrHMWbv-IFnunTrtC9VikZ9M2jbce7VADIOhU55KcGFAIamSfA9zBOpjR5I0rxYAygdPHVPjnkHgrGASYmy_-dvbhhDFzwRob3L2PV5MxZKV9FcTu5bUJau6xC0ozDC6pehrnF61D4sKqHsc3pl5Hz8NMrc7_um238g7VCDOieVE9Zgy9',
+        quizPrompt: 'Arti dari frasa "Matur Tampi Asih" adalah...',
+        quizA: 'A. Ungkapan terima kasih yang tulus dan santun',
+        quizB: 'B. Mengajak pulang bersama-sama',
+        quizCorrect: 'A',
+        explanation: '"Matur Tampi Asih" adalah rasa syukur & terima kasih adiluhung.'
+      }
+    ];
+
+    function renderActiveFlashcard() {
+      const idx = appState.activeFlashcardIdx;
+      const data = FLASHCARDS[idx];
+      if (!data) return;
+
+      document.getElementById('flashcard-index-indicator').textContent = `${idx + 1} / ${FLASHCARDS.length}`;
+      document.getElementById('flashcard-progress-bar').style.width = `${((idx + 1) / FLASHCARDS.length) * 100}%`;
+
+      document.getElementById('fc-word').textContent = data.word;
+      document.getElementById('fc-phonetic').textContent = data.phonetic;
+      document.getElementById('fc-pos').textContent = data.pos;
+      document.getElementById('fc-meaning').textContent = data.meaning;
+      document.getElementById('fc-detail').textContent = data.detail;
+      document.getElementById('fc-context').innerHTML = `<strong class="text-on-surface font-semibold">Konteks Tutur:</strong> ${data.context}`;
+      document.getElementById('fc-example-sasak').textContent = data.exampleSasak;
+      document.getElementById('fc-example-indo').textContent = data.exampleIndo;
+      document.getElementById('fc-etiquette').textContent = data.etiquette;
+      document.getElementById('fc-situation').innerHTML = `<span class="material-symbols-outlined text-[14px]">groups</span> ${data.situation}`;
+      document.getElementById('fc-image').src = data.image;
+
+      // Quiz options
+      document.getElementById('fc-quiz-prompt').innerHTML = data.quizPrompt;
+      const optWrap = document.getElementById('fc-quiz-options');
+      optWrap.innerHTML = `
+        <button onclick="checkFlashcardQuiz(this, ${data.quizCorrect === 'A'})" class="w-full text-left p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.99] transition-all flex items-center justify-between text-xs text-on-surface">
+          <span>${data.quizA}</span>
+          <span class="material-symbols-outlined text-[18px] text-outline-variant opt-icon">radio_button_unchecked</span>
+        </button>
+        <button onclick="checkFlashcardQuiz(this, ${data.quizCorrect === 'B'})" class="w-full text-left p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container active:scale-[0.99] transition-all flex items-center justify-between text-xs text-on-surface">
+          <span>${data.quizB}</span>
+          <span class="material-symbols-outlined text-[18px] text-outline-variant opt-icon">radio_button_unchecked</span>
+        </button>
+      `;
+
+      const fb = document.getElementById('fc-quiz-feedback');
+      fb.className = "hidden p-2 rounded-xl text-center text-xs font-bold transition-all";
+      fb.textContent = "";
+
+      // Bookmark indicator
+      const bmIcon = document.getElementById('fc-bookmark-icon');
+      const isBm = appState.bookmarkedWords.includes(data.word);
+      bmIcon.textContent = isBm ? 'bookmark' : 'bookmark_border';
+      bmIcon.className = `material-symbols-outlined text-[20px] ${isBm ? 'text-tertiary-container' : ''}`;
+    }
+
+    function playCurrentFlashcardVoice() {
+      const data = FLASHCARDS[appState.activeFlashcardIdx];
+      if (data) {
+        SoundFx.speakWord(data.word);
+        const icon = document.getElementById('fc-audio-icon');
+        if (icon) {
+          icon.textContent = 'graphic_eq';
+          setTimeout(() => icon.textContent = 'volume_up', 1200);
+        }
+      }
+    }
+
+    function previousFlashcard() {
+      if (appState.activeFlashcardIdx > 0) {
+        appState.activeFlashcardIdx--;
+        renderActiveFlashcard();
+      } else {
+        showToast('Ini adalah kartu pertama');
+      }
+    }
+
+    function masterActiveFlashcard(btn) {
+      awardPoints(15, 5);
+      btn.innerHTML = `<span class="material-symbols-outlined text-[18px] animate-spin">autorenew</span><span>Menyimpan...</span>`;
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">check_circle</span><span>Saya Sudah Paham (Lanjut)</span>`;
+        if (appState.activeFlashcardIdx < FLASHCARDS.length - 1) {
+          appState.activeFlashcardIdx++;
+          renderActiveFlashcard();
+        } else {
+          showToast('Selamat! Semua kartu di modul ini telah Anda kuasai!');
+          appState.activeFlashcardIdx = 0;
+          renderActiveFlashcard();
+        }
+      }, 500);
+    }
+
+    function checkFlashcardQuiz(el, isCorrect) {
+      const fb = document.getElementById('fc-quiz-feedback');
+      const options = document.querySelectorAll('#fc-quiz-options button');
+      options.forEach(b => b.disabled = true);
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        SoundFx.playSuccess();
+        el.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
+        el.querySelector('.opt-icon').textContent = 'check_circle';
+        el.querySelector('.opt-icon').classList.add('text-primary');
+        fb.className = "p-2 rounded-xl text-center text-xs font-bold bg-surface-container text-primary";
+        fb.textContent = "Benar sekali! Refleks pemahaman Anda sangat tepat.";
+        awardPoints(15, 5);
+      } else {
+        SoundFx.playError();
+        el.classList.add('bg-error-container', 'text-on-error-container');
+        el.querySelector('.opt-icon').textContent = 'cancel';
+        el.querySelector('.opt-icon').classList.add('text-error');
+        fb.className = "p-2 rounded-xl text-center text-xs font-bold bg-error-container text-on-error-container";
+        fb.textContent = "Kurang tepat. Cermati register dan konteks adat Sasak.";
+      }
+    }
+
+    function toggleActiveBookmark() {
+      const word = FLASHCARDS[appState.activeFlashcardIdx]?.word;
+      if (!word) return;
+      const idx = appState.bookmarkedWords.indexOf(word);
+      if (idx > -1) {
+        appState.bookmarkedWords.splice(idx, 1);
+        showToast(`Kata "${word}" dihapus dari simpanan`);
+      } else {
+        appState.bookmarkedWords.push(word);
+        showToast(`Kata "${word}" disimpan ke portofolio`);
+      }
+      saveAppState();
+      renderActiveFlashcard();
+    }
+
+    function bookmarkWord(w) {
+      if (!appState.bookmarkedWords.includes(w)) {
+        appState.bookmarkedWords.push(w);
+        saveAppState();
+      }
+      showToast(`Kata "${w}" tersimpan di portofolio!`);
+    }
+
+    function switchBelajarSubtab(mode) {
+      const tabFc = document.getElementById('subtab-flashcard');
+      const tabQz = document.getElementById('subtab-quiz');
+      const viewFc = document.getElementById('belajar-flashcard-subview');
+      const viewQz = document.getElementById('belajar-quiz-subview');
+
+      if (mode === 'flashcard') {
+        tabFc.className = "flex-1 py-2 text-center rounded-xl text-xs font-bold bg-primary text-on-primary shadow-xs transition-all";
+        tabQz.className = "flex-1 py-2 text-center rounded-xl text-xs font-bold text-on-surface-variant hover:text-primary transition-all";
+        viewFc.classList.remove('hidden');
+        viewQz.classList.add('hidden');
+      } else {
+        tabQz.className = "flex-1 py-2 text-center rounded-xl text-xs font-bold bg-primary text-on-primary shadow-xs transition-all";
+        tabFc.className = "flex-1 py-2 text-center rounded-xl text-xs font-bold text-on-surface-variant hover:text-primary transition-all";
+        viewQz.classList.remove('hidden');
+        viewFc.classList.add('hidden');
+      }
+    }
+
+    function handleQuizAnswer(el, isCorrect, note) {
+      const btns = document.querySelectorAll('#quiz-challenge-options button');
+      btns.forEach(b => b.disabled = true);
+
+      const exp = document.getElementById('quiz-result-explanation');
+      const title = document.getElementById('quiz-status-title');
+      const detail = document.getElementById('quiz-status-detail');
+
+      exp.classList.remove('hidden');
+
+      if (isCorrect) {
+        SoundFx.playSuccess();
+        el.classList.add('bg-primary-fixed', 'border-primary');
+        title.textContent = "Bagus Sekali! Pilihan Tepat";
+        title.className = "text-sm font-bold text-primary";
+        detail.textContent = note;
+        awardPoints(20, 10);
+      } else {
+        SoundFx.playError();
+        el.classList.add('bg-error-container', 'border-error');
+        title.textContent = "Kurang Tepat, Perhatikan Adat";
+        title.className = "text-sm font-bold text-error";
+        detail.textContent = note;
+      }
+    }
+
+    function resetQuizQuestion() {
+      const btns = document.querySelectorAll('#quiz-challenge-options button');
+      btns.forEach(b => {
+        b.disabled = false;
+        b.classList.remove('bg-primary-fixed', 'bg-error-container', 'border-primary', 'border-error');
+      });
+      document.getElementById('quiz-result-explanation').classList.add('hidden');
+    }
+
+    // --- 7. COMPLETE ARENA GAMES ENGINE (ALL 6 GAMES) ---
+    const ARENA_GAMES = {
+      game1: {
+        title: "Tebak Arti Kata Sasak",
+        icon: "quiz",
+        xpPerQuestion: 20,
+        questions: [
+          {
+            q: "Apa arti kata krama 'Tiang' dalam percakapan sopan sehari-hari?",
+            opts: ["Saya / Hamba", "Kamu / Anda", "Rumah / Hunian", "Tiang kayu penyangga"],
+            correct: 0,
+            expl: "Benar! 'Tiang' adalah kata ganti orang pertama (Saya/Hamba) dalam bahasa Sasak Halus."
+          },
+          {
+            q: "Bentuk kata krama paling santun untuk 'Makan' bagi sesepuh adalah...",
+            opts: ["Medaar", "Ngendeng", "Ngirup", "Belabur"],
+            correct: 0,
+            expl: "'Medaar' digunakan untuk mempersilakan orang tua/sesepuh bersantap secara takzim."
+          },
+          {
+            q: "Kata 'Pelenggih' secara takzim ditujukan kepada...",
+            opts: ["Anda / Tuan (Dihormati)", "Mereka di seberang", "Saudara bungsu", "Teman sebaya akrab"],
+            correct: 0,
+            expl: "'Pelenggih' merupakan bentuk penghormatan tinggi untuk lawan bicara."
+          }
+        ]
+      },
+      game2: {
+        title: "Susun Kalimat Krama",
+        icon: "sort_by_alpha",
+        xpPerQuestion: 30,
+        sentences: [
+          {
+            instruction: "Susun kata berikut agar menjadi permohonan pamit yang santun:",
+            target: ["Tiang", "nunas", "pamit", "mangkin"],
+            scrambled: ["pamit", "mangkin", "Tiang", "nunas"],
+            meaning: "Saya memohon izin pamit sekarang."
+          },
+          {
+            instruction: "Susun kata berikut untuk mempersilakan tamu masuk ke Bale:",
+            target: ["Silaq", "pelenggih", "tame", "juluq"],
+            scrambled: ["tame", "juluq", "pelenggih", "Silaq"],
+            meaning: "Silakan Anda masuk terlebih dahulu."
+          }
+        ]
+      },
+      game3: {
+        title: "Tebak Pelafalan Asli",
+        icon: "volume_up",
+        xpPerQuestion: 25,
+        items: [
+          {
+            word: "Aiq Meneng",
+            prompt: "Dengarkan lafal ungkapan ini, manakah padanan makna filosofisnya?",
+            opts: [
+              "Air yang jernih dan tenang (keteduhan hati)",
+              "Sungai berarus deras di lereng gunung",
+              "Hujan gerimis di pantai Kuta",
+              "Sumur tua di tengah dusun"
+            ],
+            correct: 0
+          },
+          {
+            word: "Solah Senop",
+            prompt: "Dengarkan dialek Sasak ini, apa maknanya?",
+            opts: [
+              "Sangat elok, anggun dan tertib budi pekertinya",
+              "Gotong royong membersihkan sawah",
+              "Kain songket bermotif kuno",
+              "Perayaan panen raya tahunan"
+            ],
+            correct: 0
+          }
+        ]
+      },
+      game4: {
+        title: "Latihan Menulis Krama",
+        icon: "edit_note",
+        xpPerQuestion: 35,
+        items: [
+          {
+            prompt: "Terjemahkan kata 'RUMAH' ke dalam bahasa Sasak Halus:",
+            valid: ["bale", "bale langgak"],
+            hint: "Petunjuk: Bangunan khas tradisional Sasak diawali huruf B",
+            note: "Jawaban baku: 'Bale' (seperti Bale Lumbung atau Bale Tani)."
+          },
+          {
+            prompt: "Terjemahkan kata 'TIDUR' ke dalam tingkatan krama santun bagi sesepuh:",
+            valid: ["tunduk", "sare"],
+            hint: "Petunjuk: Kata krama santun diawali huruf T atau S",
+            note: "Jawaban baku: 'Tunduk' atau 'Sare'."
+          }
+        ]
+      },
+      game5: {
+        title: "Pantun Lelakaq Adat",
+        icon: "headphones",
+        xpPerQuestion: 40,
+        items: [
+          {
+            poem: "Puntik manggis leq peken Gerung,\nBau kandoq leq sedin kokoh.\nLamun solah tata lan adab tetulung,\nSalamet idup ndeq te bau goyoh.",
+            q: "Apakah amanat utama dalam bait pantun Sasak (lelakaq) di atas?",
+            opts: [
+              "Menjaga tata krama dan budi pekerti menghindarkan diri dari celaka",
+              "Anjuran membeli buah-buahan segar ke pasar Gerung",
+              "Larangan mencari ikan di tepi sungai saat senja",
+              "Teknik menenun motif Subahnale Sade"
+            ],
+            correct: 0
+          }
+        ]
+      },
+      game6: {
+        title: "Simulasi Dialog Santun",
+        icon: "record_voice_over",
+        xpPerQuestion: 45,
+        items: [
+          {
+            situation: "Konteks: Anda hendak berpamitan pulang setelah bersilaturahmi ke kediaman pemuka adat.",
+            q: "Manakah kalimat permohonan pamit yang paling adiluhung?",
+            opts: [
+              "Tabeq pelenggih, tiang matur nunas pamit.",
+              "Wah berari mangkin tiang ulek gancan.",
+              "Lalo juluq tiang aok.",
+              "Silaq te lalo berayean."
+            ],
+            correct: 0,
+            expl: "'Tabeq pelenggih, tiang matur nunas pamit' adalah standar unggah-ungguh tertinggi."
+          }
+        ]
+      }
+    };
+
+    let activeGameId = 'game1';
+    let currentStepIdx = 0;
+    let gameScoreXp = 0;
+    let gameScoreCoins = 0;
+    let gameCorrectCount = 0;
+    let currentSentenceBuilder = [];
+
+    function launchGameArena(gameId) {
+      activeGameId = gameId;
+      currentStepIdx = 0;
+      gameScoreXp = 0;
+      gameScoreCoins = 0;
+      gameCorrectCount = 0;
+
+      const modal = document.getElementById('game-arena-modal');
+      const game = ARENA_GAMES[gameId];
+      if (!modal || !game) return;
+
+      document.getElementById('arena-header-title').textContent = game.title;
+      document.getElementById('arena-header-icon').innerHTML = `<span class="material-symbols-outlined text-[18px]">${game.icon}</span>`;
+      document.getElementById('arena-xp-badge').textContent = `+0 XP`;
+
+      document.getElementById('arena-body-content').classList.remove('hidden');
+      document.getElementById('arena-result-screen').classList.add('hidden');
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      renderArenaQuestion();
+    }
+
+    function renderArenaQuestion() {
+      const game = ARENA_GAMES[activeGameId];
+      const body = document.getElementById('arena-body-content');
+      if (!game || !body) return;
+
+      // Update progress
+      let totalSteps = 1;
+      if (game.questions) totalSteps = game.questions.length;
+      else if (game.sentences) totalSteps = game.sentences.length;
+      else if (game.items) totalSteps = game.items.length;
+
+      document.getElementById('arena-header-counter').textContent = `Soal ${currentStepIdx + 1} dari ${totalSteps}`;
+      document.getElementById('arena-progress-line').style.width = `${((currentStepIdx + 1) / totalSteps) * 100}%`;
+
+      // Render based on Game Mode
+      if (activeGameId === 'game1') {
+        const item = game.questions[currentStepIdx];
+        body.innerHTML = `
+          <div class="bg-surface-container-low p-3.5 rounded-2xl flex flex-col gap-1.5">
+            <span class="text-[11px] text-primary font-bold uppercase tracking-wider">Pertanyaan Krama</span>
+            <p class="text-sm font-bold text-on-surface leading-snug">${item.q}</p>
+          </div>
+          <div class="flex flex-col gap-2 pt-1" id="arena-opts">
+            ${item.opts.map((opt, i) => `
+              <button onclick="handleArenaChoice(${i}, ${item.correct})" class="w-full p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary active:scale-[0.99] text-left text-xs font-semibold text-on-surface transition-all flex items-center justify-between">
+                <span>${opt}</span>
+                <span class="material-symbols-outlined text-[16px] text-outline-variant">radio_button_unchecked</span>
+              </button>
+            `).join('')}
+          </div>
+          <div id="arena-step-fb" class="hidden p-2.5 rounded-xl text-center text-xs font-bold mt-2"></div>
+        `;
+      } else if (activeGameId === 'game2') {
+        const item = game.sentences[currentStepIdx];
+        currentSentenceBuilder = [];
+        body.innerHTML = `
+          <div class="bg-surface-container-low p-3.5 rounded-2xl flex flex-col gap-1">
+            <span class="text-[11px] text-secondary font-bold uppercase tracking-wider">Instruksi</span>
+            <p class="text-xs font-bold text-on-surface">${item.instruction}</p>
+            <p class="text-[11px] text-outline italic">Arti: "${item.meaning}"</p>
+          </div>
+          <div class="flex flex-col gap-2 pt-1">
+            <span class="text-xs font-bold text-on-surface">Susunan Anda:</span>
+            <div id="sentence-target-slot" class="min-h-[48px] p-2 rounded-xl bg-surface-container border-2 border-dashed border-primary/40 flex flex-wrap gap-1.5 items-center">
+              <span class="text-xs text-on-surface-variant italic">Ketuk kata di bawah untuk menyusun...</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1.5 pt-2">
+            <span class="text-xs font-bold text-on-surface">Pilihan Kata:</span>
+            <div id="sentence-word-bank" class="flex flex-wrap gap-2">
+              ${item.scrambled.map(w => `
+                <button onclick="pickWordForSentence(this, '${w}')" class="px-3 py-1.5 rounded-xl bg-surface-container-lowest border border-outline-variant/30 text-xs font-bold text-primary active:scale-95 shadow-xs transition-all">
+                  ${w}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="flex items-center gap-2 pt-3">
+            <button onclick="resetSentenceBuilder()" class="py-2.5 px-3 rounded-xl bg-surface-container-high text-xs font-bold text-on-surface">Reset</button>
+            <button onclick="checkSentenceBuilder()" class="flex-1 py-2.5 rounded-xl bg-primary text-on-primary text-xs font-bold shadow-xs">Periksa Jawaban</button>
+          </div>
+          <div id="arena-step-fb" class="hidden p-2.5 rounded-xl text-center text-xs font-bold mt-2"></div>
+        `;
+      } else if (activeGameId === 'game3') {
+        const item = game.items[currentStepIdx];
+        body.innerHTML = `
+          <div class="bg-surface-container-low p-4 rounded-2xl flex flex-col items-center text-center gap-2">
+            <button onclick="SoundFx.speakWord('${item.word}')" class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm active:scale-95">
+              <span class="material-symbols-outlined text-[28px]">volume_up</span>
+            </button>
+            <span class="text-xs font-bold text-primary">Ketuk tombol untuk mendengarkan lafal</span>
+            <p class="text-xs text-on-surface-variant font-medium mt-1">${item.prompt}</p>
+          </div>
+          <div class="flex flex-col gap-2 pt-2">
+            ${item.opts.map((opt, i) => `
+              <button onclick="handleArenaChoice(${i}, ${item.correct})" class="w-full p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary active:scale-[0.99] text-left text-xs font-semibold text-on-surface transition-all">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="arena-step-fb" class="hidden p-2.5 rounded-xl text-center text-xs font-bold mt-2"></div>
+        `;
+        SoundFx.speakWord(item.word);
+      } else if (activeGameId === 'game4') {
+        const item = game.items[currentStepIdx];
+        body.innerHTML = `
+          <div class="bg-surface-container-low p-3.5 rounded-2xl flex flex-col gap-1.5">
+            <span class="text-[11px] text-primary font-bold uppercase tracking-wider">Menulis Krama</span>
+            <p class="text-xs font-bold text-on-surface">${item.prompt}</p>
+            <p class="text-[11px] text-outline italic">${item.hint}</p>
+          </div>
+          <form onsubmit="handleWritingSubmit(event)" class="flex flex-col gap-2 pt-2">
+            <input id="arena-writing-input" type="text" autocomplete="off" placeholder="Ketik kata bahasa Sasak halus di sini..." class="w-full px-3.5 py-2.5 rounded-xl bg-surface-container-lowest border border-outline-variant/40 text-xs text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"/>
+            <button type="submit" class="w-full py-2.5 rounded-xl bg-primary text-on-primary text-xs font-bold shadow-xs">Kirim Jawaban</button>
+          </form>
+          <div id="arena-step-fb" class="hidden p-2.5 rounded-xl text-center text-xs font-bold mt-2"></div>
+        `;
+      } else if (activeGameId === 'game5') {
+        const item = game.items[currentStepIdx];
+        body.innerHTML = `
+          <div class="bg-surface-container-low p-3.5 rounded-2xl flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] text-tertiary font-bold uppercase tracking-wider">Bait Lelakaq Tradisional</span>
+              <button onclick="SoundFx.speakWord('${item.poem.replace(/\n/g, ' ')}')" class="text-xs text-primary font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">volume_up</span> Lafalkan
+              </button>
+            </div>
+            <p class="text-xs text-on-surface italic font-serif leading-relaxed whitespace-pre-line bg-surface-container-lowest p-2.5 rounded-xl border border-outline-variant/20">${item.poem}</p>
+            <p class="text-xs font-bold text-on-surface mt-1">${item.q}</p>
+          </div>
+          <div class="flex flex-col gap-2 pt-1">
+            ${item.opts.map((opt, i) => `
+              <button onclick="handleArenaChoice(${i}, ${item.correct})" class="w-full p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary active:scale-[0.99] text-left text-xs font-semibold text-on-surface transition-all">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="arena-step-fb" class="hidden p-2.5 rounded-xl text-center text-xs font-bold mt-2"></div>
+        `;
+      } else if (activeGameId === 'game6') {
+        const item = game.items[currentStepIdx];
+        body.innerHTML = `
+          <div class="bg-surface-container-low p-3.5 rounded-2xl flex flex-col gap-1.5">
+            <span class="text-[11px] text-secondary font-bold uppercase tracking-wider">Skenario Adat</span>
+            <p class="text-xs font-medium text-on-surface-variant">${item.situation}</p>
+            <p class="text-xs font-bold text-on-surface mt-1">${item.q}</p>
+          </div>
+          <div class="flex flex-col gap-2 pt-1">
+            ${item.opts.map((opt, i) => `
+              <button onclick="handleArenaChoice(${i}, ${item.correct})" class="w-full p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30 hover:border-primary active:scale-[0.99] text-left text-xs font-semibold text-on-surface transition-all">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="arena-step-fb" class="hidden p-2.5 rounded-xl text-center text-xs font-bold mt-2"></div>
+        `;
+      }
+    }
+
+    function handleArenaChoice(chosenIdx, correctIdx) {
+      const fb = document.getElementById('arena-step-fb');
+      const game = ARENA_GAMES[activeGameId];
+      if (!fb || !game) return;
+
+      fb.classList.remove('hidden');
+      if (chosenIdx === correctIdx) {
+        SoundFx.playSuccess();
+        gameScoreXp += (game.xpPerQuestion || 20);
+        gameScoreCoins += 5;
+        gameCorrectCount++;
+        document.getElementById('arena-xp-badge').textContent = `+${gameScoreXp} XP`;
+        fb.className = "p-2.5 rounded-xl text-center text-xs font-bold bg-surface-container text-primary";
+        fb.textContent = "Benar sekali! Poin ditambahkan.";
+      } else {
+        SoundFx.playError();
+        fb.className = "p-2.5 rounded-xl text-center text-xs font-bold bg-error-container text-on-error-container";
+        fb.textContent = "Kurang tepat. Jangan berkecil hati!";
+      }
+
+      setTimeout(() => advanceArenaStep(), 900);
+    }
+
+    function pickWordForSentence(btn, word) {
+      currentSentenceBuilder.push(word);
+      btn.classList.add('opacity-40', 'pointer-events-none');
+      renderSentenceTargetSlot();
+    }
+
+    function renderSentenceTargetSlot() {
+      const slot = document.getElementById('sentence-target-slot');
+      if (!slot) return;
+      if (currentSentenceBuilder.length === 0) {
+        slot.innerHTML = `<span class="text-xs text-on-surface-variant italic">Ketuk kata di bawah untuk menyusun...</span>`;
+      } else {
+        slot.innerHTML = currentSentenceBuilder.map((w, i) => `
+          <span class="px-2.5 py-1 rounded-lg bg-primary text-on-primary text-xs font-bold shadow-xs">
+            ${w}
+          </span>
+        `).join('');
+      }
+    }
+
+    function resetSentenceBuilder() {
+      currentSentenceBuilder = [];
+      const bank = document.querySelectorAll('#sentence-word-bank button');
+      bank.forEach(b => b.classList.remove('opacity-40', 'pointer-events-none'));
+      renderSentenceTargetSlot();
+    }
+
+    function checkSentenceBuilder() {
+      const game = ARENA_GAMES[activeGameId];
+      const item = game.sentences[currentStepIdx];
+      const fb = document.getElementById('arena-step-fb');
+      if (!item || !fb) return;
+
+      const isCorrect = currentSentenceBuilder.join(' ') === item.target.join(' ');
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        SoundFx.playSuccess();
+        gameScoreXp += game.xpPerQuestion;
+        gameScoreCoins += 8;
+        gameCorrectCount++;
+        document.getElementById('arena-xp-badge').textContent = `+${gameScoreXp} XP`;
+        fb.className = "p-2.5 rounded-xl text-center text-xs font-bold bg-surface-container text-primary";
+        fb.textContent = "Luar biasa! Kalimat tersusun sempurna secara krama.";
+        setTimeout(() => advanceArenaStep(), 1000);
+      } else {
+        SoundFx.playError();
+        fb.className = "p-2.5 rounded-xl text-center text-xs font-bold bg-error-container text-on-error-container";
+        fb.textContent = "Urutan kata belum tepat. Coba atur ulang!";
+      }
+    }
+
+    function handleWritingSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('arena-writing-input');
+      const game = ARENA_GAMES[activeGameId];
+      const item = game.items[currentStepIdx];
+      const fb = document.getElementById('arena-step-fb');
+      if (!input || !item || !fb) return;
+
+      const val = input.value.trim().toLowerCase();
+      const isMatch = item.valid.some(v => val.includes(v.toLowerCase()));
+      fb.classList.remove('hidden');
+
+      if (isMatch) {
+        SoundFx.playSuccess();
+        gameScoreXp += game.xpPerQuestion;
+        gameScoreCoins += 10;
+        gameCorrectCount++;
+        document.getElementById('arena-xp-badge').textContent = `+${gameScoreXp} XP`;
+        fb.className = "p-2.5 rounded-xl text-center text-xs font-bold bg-surface-container text-primary";
+        fb.textContent = `Tepat! ${item.note}`;
+      } else {
+        SoundFx.playError();
+        fb.className = "p-2.5 rounded-xl text-center text-xs font-bold bg-error-container text-on-error-container";
+        fb.textContent = `Kurang tepat. ${item.note}`;
+      }
+
+      setTimeout(() => advanceArenaStep(), 1200);
+    }
+
+    function advanceArenaStep() {
+      const game = ARENA_GAMES[activeGameId];
+      let totalSteps = 1;
+      if (game.questions) totalSteps = game.questions.length;
+      else if (game.sentences) totalSteps = game.sentences.length;
+      else if (game.items) totalSteps = game.items.length;
+
+      if (currentStepIdx < totalSteps - 1) {
+        currentStepIdx++;
+        renderArenaQuestion();
+      } else {
+        // Show result summary
+        showArenaResult(totalSteps);
+      }
+    }
+
+    function showArenaResult(total) {
+      awardPoints(gameScoreXp, gameScoreCoins);
+
+      document.getElementById('arena-body-content').classList.add('hidden');
+      const res = document.getElementById('arena-result-screen');
+      res.classList.remove('hidden');
+
+      const acc = Math.round((gameCorrectCount / total) * 100);
+      document.getElementById('arena-result-xp').textContent = `+${gameScoreXp}`;
+      document.getElementById('arena-result-accuracy').textContent = `${acc}%`;
+      document.getElementById('arena-result-coins').textContent = `+${gameScoreCoins}`;
+
+      const msg = document.getElementById('arena-result-desc');
+      if (acc === 100) {
+        msg.textContent = "Akurasi sempurna! Adab tutur Sasak Halus Anda sangat membanggakan.";
+      } else {
+        msg.textContent = "Terus berlatih! Setiap pengulangan mengukir ketajaman budi pekerti.";
+      }
+    }
+
+    function replayCurrentGame() {
+      launchGameArena(activeGameId);
+    }
+
+    function closeGameArenaConfirm() {
+      exitGameArena();
+    }
+
+    function exitGameArena() {
+      const modal = document.getElementById('game-arena-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    // --- 8. BUDAYA / MANDALIKA AUDIO & ACCORDIONS ---
+    let isStoryPlaying = false;
+    let storySeconds = 0;
+    let storyInterval = null;
+    let storyLanguage = 'sasak';
+
+    function toggleStoryAudioPlayback() {
+      const icon = document.getElementById('storyAudioIcon');
+      const timer = document.getElementById('storyAudioTimer');
+      const btn = document.getElementById('storyAudioPlayBtn');
+
+      isStoryPlaying = !isStoryPlaying;
+      if (isStoryPlaying) {
+        icon.textContent = 'pause';
+        btn.classList.replace('bg-primary', 'bg-tertiary-container');
+        SoundFx.speakWord("Alkisah ring bumi Lombok, Putri Mandalika kaloktah antuk budi pekerti sane asri.");
+        storyInterval = setInterval(() => {
+          storySeconds++;
+          const m = Math.floor(storySeconds / 60);
+          const s = (storySeconds % 60).toString().padStart(2, '0');
+          if (timer) timer.textContent = `${m}:${s} / 3:15`;
+        }, 1000);
+      } else {
+        icon.textContent = 'play_arrow';
+        btn.classList.replace('bg-tertiary-container', 'bg-primary');
+        clearInterval(storyInterval);
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    function switchStoryLanguage(btn) {
+      if (storyLanguage === 'sasak') {
+        storyLanguage = 'indo';
+        btn.textContent = '1x Indo';
+        showToast('Beralih ke Narasi Bahasa Indonesia');
+      } else {
+        storyLanguage = 'sasak';
+        btn.textContent = '1x Sasak';
+        showToast('Beralih ke Narasi Bahasa Sasak Halus');
+      }
+    }
+
+    function toggleActAccordion(triggerBtn) {
+      const body = triggerBtn.nextElementSibling;
+      const chevron = triggerBtn.querySelector('.material-symbols-outlined');
+      if (!body) return;
+      const isHidden = body.classList.contains('hidden');
+      if (isHidden) {
+        body.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      } else {
+        body.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    function revealVocabDetail(word, meaning) {
+      const card = document.getElementById('vocab-meaning-card');
+      const title = document.getElementById('vocab-title');
+      const desc = document.getElementById('vocab-desc');
+      if (card && title && desc) {
+        title.textContent = word;
+        desc.textContent = meaning;
+        card.classList.remove('hidden');
+      }
+      SoundFx.speakWord(word);
+    }
+
+    function toggleStoryBookmark(btn) {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon.textContent === 'bookmark_border') {
+        icon.textContent = 'bookmark';
+        icon.style.fontVariationSettings = "'FILL' 1";
+        showToast('Cerita Putri Mandalika disimpan ke Koleksi Budaya!');
+      } else {
+        icon.textContent = 'bookmark_border';
+        icon.style.fontVariationSettings = "'FILL' 0";
+        showToast('Cerita dihapus dari Koleksi');
+      }
+    }
+
+    function shareCurrentStory() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Legenda Putri Mandalika - AKSARA Sasak',
+          text: 'Pelajari kisah pengorbanan luhur dan falsafah Tatas Tuhu Taras suku Sasak Lombok di AKSARA.',
+          url: window.location.href
+        }).catch(() => showToast('Tautan kisah Mandalika disalin!'));
+      } else {
+        showToast('Tautan kisah Mandalika berhasil disalin ke papan klip!');
+      }
+    }
+
+    function filterBudayaCategory(btn, cat) {
+      document.querySelectorAll('.budaya-cat-btn').forEach(b => {
+        b.className = "budaya-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-surface-container-high text-on-surface-variant whitespace-nowrap";
+      });
+      btn.className = "budaya-cat-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-primary text-on-primary shadow-xs whitespace-nowrap";
+      showToast(`Menampilkan kategori: ${btn.textContent.trim()}`);
+    }
+
+    // --- 9. PROFILE EDITING & MODALS ---
+    function openEditProfileModal() {
+      const modal = document.getElementById('modal-edit-profile');
+      document.getElementById('edit-profile-name').value = appState.user.name;
+      document.getElementById('edit-profile-username').value = appState.user.username;
+      document.getElementById('edit-profile-bio').value = appState.user.bio;
+      modal.classList.replace('hidden', 'flex');
+    }
+
+    function closeEditProfileModal() {
+      document.getElementById('modal-edit-profile').classList.replace('flex', 'hidden');
+    }
+
+    function saveEditedProfile(e) {
+      e.preventDefault();
+      const n = document.getElementById('edit-profile-name').value.trim();
+      const u = document.getElementById('edit-profile-username').value.trim();
+      const b = document.getElementById('edit-profile-bio').value.trim();
+      if (n) {
+        appState.user.name = n;
+        appState.user.username = u.startsWith('@') ? u : '@' + u;
+        appState.user.bio = b || appState.user.bio;
+        saveAppState();
+        closeEditProfileModal();
+        showToast('Profil Anda berhasil diperbarui!');
+      }
+    }
+
+    function openBadgeDetail(title, desc, tier, icon, colorClass) {
+      const modal = document.getElementById('modal-badge-detail');
+      document.getElementById('badge-detail-title').textContent = title;
+      document.getElementById('badge-detail-desc').textContent = desc;
+      document.getElementById('badge-detail-tier').textContent = tier;
+      document.getElementById('badge-detail-icon').textContent = icon;
+      document.getElementById('badge-detail-icon-wrap').className = `w-14 h-14 rounded-2xl mx-auto flex items-center justify-center shadow-xs ${colorClass}`;
+      modal.classList.replace('hidden', 'flex');
+    }
+
+    function shareProfileCard() {
+      showToast('Tautan profil @' + appState.user.username.replace('@', '') + ' disalin!');
+    }
+
+    function triggerNotificationList() {
+      showToast('Pengingat harian 19:30 WITA aktif. Belajar 15 menit hari ini!');
+    }
+
+    // --- 10. INITIALIZATION ON DOM READY ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAppState();
+      renderActiveFlashcard();
+      // Start at landing page
+      navigateTo('landing');
+    });
+  </script>
+</body>
+</html>
